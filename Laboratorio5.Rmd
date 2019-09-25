@@ -3,8 +3,10 @@ title: "Laboratorio 5"
 output: html_notebook
 ---
 
-\textbf{Análisis de datos}
-
+## Descripción de los datos
+* _Blogs_: El tamaño de estos datos son de aproximadamente  210.2 MB, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto. 
+* _Twitter_: El tamaño de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.
+* _News_: El tamaño de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.
 
 
 Los paquetes que se usaron para este laboratorio fueron los siguientes:

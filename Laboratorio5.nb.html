@@ -1750,7 +1750,13 @@ summary {
 
 
 <!-- rnb-text-begin -->
-<p></p>
+<div id="descripcion-de-los-datos" class="section level2">
+<h2>Descripción de los datos</h2>
+<ul>
+<li><em>Blogs</em>: El tamaño de estos datos son de aproximadamente 210.2 MB, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto.</li>
+<li><em>Twitter</em>: El tamaño de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.</li>
+<li><em>News</em>: El tamaño de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.</li>
+</ul>
 <p>Los paquetes que se usaron para este laboratorio fueron los siguientes:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1763,7 +1769,7 @@ summary {
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJDOi9Vc2Vycy9zbWF5ci9Eb2N1bWVudHMvVGVyY2VyIGHDsW8vU2VtZXN0cmUgNi9EYXRhIFNjaWVuY2UvTGFib3JhdG9yaW8gNVwiKVxuVVMuYmxvZ3MgPC0gcmVhZC5kZWxpbShcImVuX1VTLmJsb2dzLnR4dFwiKVxuVVMubmV3cyA8LSByZWFkLmRlbGltKFwiZW5fVVMubmV3cy50eHRcIilcblVTLnR3aXR0ZXIgPC0gcmVhZC5kZWxpbShcImVuX1VTLnR3aXR0ZXIudHh0XCIpXG5gYGAifQ== -->
-<pre class="r"><code>setwd(&quot;C:/Users/smayr/Documents/Tercer aÃ±o/Semestre 6/Data Science/Laboratorio 5&quot;)
+<pre class="r"><code>setwd(&quot;C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5&quot;)
 US.blogs &lt;- read.delim(&quot;en_US.blogs.txt&quot;)
 US.news &lt;- read.delim(&quot;en_US.news.txt&quot;)
 US.twitter &lt;- read.delim(&quot;en_US.twitter.txt&quot;)</code></pre>
@@ -1771,8 +1777,9 @@ US.twitter &lt;- read.delim(&quot;en_US.twitter.txt&quot;)</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYm9yYXRvcmlvIDUiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpcdGV4dGJme0Fuw6FsaXNpcyBkZSBkYXRvc30NCg0KDQoNCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6DQpgYGB7cn0NCmxpYnJhcnkoInJlYWRyIikNCmBgYA0KDQpBaG9yYSwgc2UgaW1wb3J0YW4gbG9zIGRhdG9zIHkgc2UgbGVlbg0KYGBge3J9DQpzZXR3ZCgiQzovVXNlcnMvc21heXIvRG9jdW1lbnRzL1RlcmNlciBhw7FvL1NlbWVzdHJlIDYvRGF0YSBTY2llbmNlL0xhYm9yYXRvcmlvIDUiKQ0KVVMuYmxvZ3MgPC0gcmVhZC5kZWxpbSgiZW5fVVMuYmxvZ3MudHh0IikNClVTLm5ld3MgPC0gcmVhZC5kZWxpbSgiZW5fVVMubmV3cy50eHQiKQ0KVVMudHdpdHRlciA8LSByZWFkLmRlbGltKCJlbl9VUy50d2l0dGVyLnR4dCIpDQpgYGANCg0KDQoNCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFib3JhdG9yaW8gNSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcwoqIF9CbG9nc186IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAgMjEwLjIgTUIsIHByb3ZpZW5lIGRlIHVuIGJsb2cgZXN0YWRvdW5pZGVuc2UuIEFkZW3DoXMsIGVsIHRpcG8gZGUgY29ycHVzIGVzIG1vbm9saW5nw7xlLCB5YSBxdWUgZWwgdGV4dG8gc2UgZW5jdWVudHJhIGVzY3JpdG8gc29sYW1lbnRlIGVuIGluZ2zDqXM7IHNlIGVuY3VlbnRyYW4gZW1vdGljb25lcywgdGFsZXMgY29tbyBjb3Jhem9uZXMgeSBjYXJhcyBlc2NyaXRhcyBtZWRpYW50ZSBsb3Mgc2lnbm9zIG9ydG9ncsOhZmljb3MuIEFwYXJlY2VuIG11Y2hhcyB2ZWNlcyBsb3Mgc2lnbm9zIGRlIGV4Y2xhbWFjacOzbiB5IHNlIG9ic2VydmEgdW5hIGVzY3JpdHVyYSBkZSBuYXJyYWNpw7NuIHBhcmEgdW4gcMO6YmxpY28gYWJpZXJ0by4gCiogX1R3aXR0ZXJfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgMTY3LjEgTUIsIHByb3ZpZW5lIGRlIGxhIHJlZCBzb2NpYWwgdHdpdHRlciwgZG9uZGUgZWwgY29udGVuaWRvIGVzIGVzcGVjaWZpY2FtZW50ZSBlc3RhZG91bmlkZW5zZS4gQWRlbcOhcywgZWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpczsgc2UgZW5jdWVudHJhbiBlbW90aWNvbmVzLCB0YWxlcyBjb21vIGNvcmF6b25lcyB5IGNhcmFzIGVzY3JpdGFzIG1lZGlhbnRlIGxvcyBzaWdub3Mgb3RvZ3LDoWZpY29zLCBzaWdub3MgZGUgaW50ZXJyb2dhY2nDs24geSBleGNsYW1hY2nDs24sIGhhc2h0YWdzICMgeSBtZW5jaW9uZXMgQC4KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLgoKCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6CmBgYHtyfQpsaWJyYXJ5KCJyZWFkciIpCmBgYAoKQWhvcmEsIHNlIGltcG9ydGFuIGxvcyBkYXRvcyB5IHNlIGxlZW4KYGBge3J9CnNldHdkKCJDOi9Vc2Vycy9zbWF5ci9Eb2N1bWVudHMvVGVyY2VyIGHDsW8vU2VtZXN0cmUgNi9EYXRhIFNjaWVuY2UvTGFib3JhdG9yaW8gNSIpClVTLmJsb2dzIDwtIHJlYWQuZGVsaW0oImVuX1VTLmJsb2dzLnR4dCIpClVTLm5ld3MgPC0gcmVhZC5kZWxpbSgiZW5fVVMubmV3cy50eHQiKQpVUy50d2l0dGVyIDwtIHJlYWQuZGVsaW0oImVuX1VTLnR3aXR0ZXIudHh0IikKYGBgCgoKCg==</div>
 
 
 
