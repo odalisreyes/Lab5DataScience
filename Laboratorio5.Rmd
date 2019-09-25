@@ -1,0 +1,20 @@
+---
+title: "Laboratorio 5"
+output: html_notebook
+---
+
+\textbf{Análisis de datos}
+
+
+
+Los paquetes que se usaron para este laboratorio fueron los siguientes:
+```{r}
+library("readr")
+```
+
+Ahora, se importan los datos y se leen
+```{r}
+setwd("/Users/odalisrg/Downloads")
+US.blogs <- read.delim("en_US.blogs.txt")
+```
+
