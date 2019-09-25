@@ -1750,68 +1750,44 @@ summary {
 
 
 <!-- rnb-text-begin -->
-<div id="descripcion-de-los-datos" class="section level2">
-<h2>Descripción de los datos</h2>
+<div id="descripcian-de-los-datos" class="section level2">
+<h2>DescripciÃ³n de los datos</h2>
 <ul>
-<li><em>Blogs</em>: El tamaño de estos datos son de aproximadamente 210.2 MB, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto.</li>
-<li><em>Twitter</em>: El tamaño de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.</li>
-<li><em>News</em>: El tamaño de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.</li>
+<li><em>Blogs</em>: El tamaÃ±o de estos datos son de aproximadamente 210.2 MB, proviene de un blog estadounidense. AdemÃ¡s, el tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortogrÃ¡ficos. Aparecen muchas veces los signos de exclamaciÃ³n y se observa una escritura de narraciÃ³n para un pÃºblico abierto.</li>
+<li><em>Twitter</em>: El tamaÃ±o de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. AdemÃ¡s, el tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otogrÃ¡ficos, signos de interrogaciÃ³n y exclamaciÃ³n, hashtags # y menciones @.</li>
+<li><em>News</em>: El tamaÃ±o de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en lÃ­nea estadounidense. El tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s. No se observan emoticones pero sÃ­ links y caracteres especiales, asÃ­ como los signos dÃ³lar.</li>
 </ul>
 <p>Los paquetes que se usaron para este laboratorio fueron los siguientes:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcInRtXCIpXG5gYGAifQ== -->
-<pre class="r"><code>install.packages(&quot;tm&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiSW5zdGFsbGluZyBwYWNrYWdlIGludG8g4oCYL1VzZXJzL3F1aWVicmVzL0xpYnJhcnkvUi8zLjYvbGlicmFyeeKAmVxuKGFzIOKAmGxpYuKAmSBpcyB1bnNwZWNpZmllZClcbmFsc28gaW5zdGFsbGluZyB0aGUgZGVwZW5kZW5jaWVzIOKAmE5MUOKAmSwg4oCYc2xhbeKAmVxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL21hY29zeC9lbC1jYXBpdGFuL2NvbnRyaWIvMy42L05MUF8wLjItMC50Z3onXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3gtZ3ppcCcgbGVuZ3RoIDM5MzIxMCBieXRlcyAoMzgzIEtCKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMzgzIEtCXG5cbnRyeWluZyBVUkwgJ2h0dHBzOi8vY3Jhbi5yc3R1ZGlvLmNvbS9iaW4vbWFjb3N4L2VsLWNhcGl0YW4vY29udHJpYi8zLjYvc2xhbV8wLjEtNDUudGd6J1xuQ29udGVudCB0eXBlICdhcHBsaWNhdGlvbi94LWd6aXAnIGxlbmd0aCAyMDUwMDAgYnl0ZXMgKDIwMCBLQilcbj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5kb3dubG9hZGVkIDIwMCBLQlxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL21hY29zeC9lbC1jYXBpdGFuL2NvbnRyaWIvMy42L3RtXzAuNy02LnRneidcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24veC1nemlwJyBsZW5ndGggMTExNTcxOSBieXRlcyAoMS4xIE1CKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMS4xIE1CXG4ifQ== -->
-<pre><code>Installing package into ‘/Users/quiebres/Library/R/3.6/library’
-(as ‘lib’ is unspecified)
-also installing the dependencies ‘NLP’, ‘slam’
-
-trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/NLP_0.2-0.tgz'
-Content type 'application/x-gzip' length 393210 bytes (383 KB)
-==================================================
-downloaded 383 KB
-
-trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/slam_0.1-45.tgz'
-Content type 'application/x-gzip' length 205000 bytes (200 KB)
-==================================================
-downloaded 200 KB
-
-trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/tm_0.7-6.tgz'
-Content type 'application/x-gzip' length 1115719 bytes (1.1 MB)
-==================================================
-downloaded 1.1 MB</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy82Ni9tMW1xaDdyeDNsc2Zoemx6NzFkNDhydjQwMDAwZ24vVC8vUnRtcEplV2NGNS9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
-<pre><code>
-The downloaded binary packages are in
-    /var/folders/66/m1mqh7rx3lsfhzlz71d48rv40000gn/T//RtmpJeWcF5/downloaded_packages</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5saWJyYXJ5KFwidG1cIilcbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5saWJyYXJ5KFwidG1cIilcblxuYGBgIn0= -->
 <pre class="r"><code>library(&quot;readr&quot;)
-library(&quot;tm&quot;)</code></pre>
+library(&quot;tm&quot;)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBOTFBcbiJ9 -->
-<pre><code>Loading required package: NLP</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Ahora, se importan los datos y se leen</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGV4dG8gPC0gVkNvcnB1cyhEaXJTb3VyY2UoXCIvVXNlcnMvcXVpZWJyZXMvRGVza3RvcC90ZXh0c1wiKSwgcmVhZGVyQ29udHJvbCA9IGxpc3QobGFuZ3VhZ2UgPSBcImVuXCIpKVxuc2V0LnNlZWQoMylcbnBvcmNpZW50byA8LSAwLjA1XG50ZXh0b1tbMV1dJGNvbnRlbnQgPC0gc2FtcGxlKHRleHRvW1sxXV0kY29udGVudCxsZW5ndGgodGV4dG9bWzFdXSRjb250ZW50KSpwb3JjaWVudG8pXG5gYGAifQ== -->
-<pre class="r"><code>texto &lt;- VCorpus(DirSource(&quot;/Users/quiebres/Desktop/texts&quot;), readerControl = list(language = &quot;en&quot;))
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jQzovVXNlcnMvc21heXIvRG9jdW1lbnRzL1RlcmNlciBhw7FvL1NlbWVzdHJlIDYvRGF0YSBTY2llbmNlL0xhYm9yYXRvcmlvIDVcbnRleHRvIDwtIFZDb3JwdXMoRGlyU291cmNlKFwiL1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1XCIpLCByZWFkZXJDb250cm9sID0gbGlzdChsYW5ndWFnZSA9IFwiZW5cIikpXG5zZXQuc2VlZCgzKVxucG9yY2llbnRvIDwtIDAuMDVcbnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bylcblxuYmxvZyA8LSB0ZXh0b1tbMV1dJGNvbnRlbnQgXG5ibG9nIDwtIGFzLmRhdGEuZnJhbWUoYmxvZylcblxuYGBgIn0= -->
+<pre class="r"><code>
+#C:/Users/smayr/Documents/Tercer aÃ±o/Semestre 6/Data Science/Laboratorio 5
+texto &lt;- VCorpus(DirSource(&quot;/Users/smayr/Documents/Tercer aÃ±o/Semestre 6/Data Science/Laboratorio 5&quot;), readerControl = list(language = &quot;en&quot;))
 set.seed(3)
 porciento &lt;- 0.05
-texto[[1]]$content &lt;- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)</code></pre>
+texto[[1]]$content &lt;- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
+
+blog &lt;- texto[[1]]$content 
+blog &lt;- as.data.frame(blog)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFib3JhdG9yaW8gNSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcwoqIF9CbG9nc186IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAgMjEwLjIgTUIsIHByb3ZpZW5lIGRlIHVuIGJsb2cgZXN0YWRvdW5pZGVuc2UuIEFkZW3DoXMsIGVsIHRpcG8gZGUgY29ycHVzIGVzIG1vbm9saW5nw7xlLCB5YSBxdWUgZWwgdGV4dG8gc2UgZW5jdWVudHJhIGVzY3JpdG8gc29sYW1lbnRlIGVuIGluZ2zDqXM7IHNlIGVuY3VlbnRyYW4gZW1vdGljb25lcywgdGFsZXMgY29tbyBjb3Jhem9uZXMgeSBjYXJhcyBlc2NyaXRhcyBtZWRpYW50ZSBsb3Mgc2lnbm9zIG9ydG9ncsOhZmljb3MuIEFwYXJlY2VuIG11Y2hhcyB2ZWNlcyBsb3Mgc2lnbm9zIGRlIGV4Y2xhbWFjacOzbiB5IHNlIG9ic2VydmEgdW5hIGVzY3JpdHVyYSBkZSBuYXJyYWNpw7NuIHBhcmEgdW4gcMO6YmxpY28gYWJpZXJ0by4gCiogX1R3aXR0ZXJfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgMTY3LjEgTUIsIHByb3ZpZW5lIGRlIGxhIHJlZCBzb2NpYWwgdHdpdHRlciwgZG9uZGUgZWwgY29udGVuaWRvIGVzIGVzcGVjaWZpY2FtZW50ZSBlc3RhZG91bmlkZW5zZS4gQWRlbcOhcywgZWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpczsgc2UgZW5jdWVudHJhbiBlbW90aWNvbmVzLCB0YWxlcyBjb21vIGNvcmF6b25lcyB5IGNhcmFzIGVzY3JpdGFzIG1lZGlhbnRlIGxvcyBzaWdub3Mgb3RvZ3LDoWZpY29zLCBzaWdub3MgZGUgaW50ZXJyb2dhY2nDs24geSBleGNsYW1hY2nDs24sIGhhc2h0YWdzICMgeSBtZW5jaW9uZXMgQC4KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLgoKCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6CmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJ0bSIpCmxpYnJhcnkoInJlYWRyIikKbGlicmFyeSgidG0iKQoKYGBgCgpBaG9yYSwgc2UgaW1wb3J0YW4gbG9zIGRhdG9zIHkgc2UgbGVlbgpgYGB7cn0KdGV4dG8gPC0gVkNvcnB1cyhEaXJTb3VyY2UoIi9Vc2Vycy9xdWllYnJlcy9EZXNrdG9wL3RleHRzIiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gImVuIikpCnNldC5zZWVkKDMpCnBvcmNpZW50byA8LSAwLjA1CnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bykKYGBgCgoK</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYm9yYXRvcmlvIDUiDQpvdXRwdXQ6DQogIHBkZl9kb2N1bWVudDogZGVmYXVsdA0KICBodG1sX25vdGVib29rOiBkZWZhdWx0DQotLS0NCg0KIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcw0KKiBfQmxvZ3NfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgIDIxMC4yIE1CLCBwcm92aWVuZSBkZSB1biBibG9nIGVzdGFkb3VuaWRlbnNlLiBBZGVtw6FzLCBlbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzOyBzZSBlbmN1ZW50cmFuIGVtb3RpY29uZXMsIHRhbGVzIGNvbW8gY29yYXpvbmVzIHkgY2FyYXMgZXNjcml0YXMgbWVkaWFudGUgbG9zIHNpZ25vcyBvcnRvZ3LDoWZpY29zLiBBcGFyZWNlbiBtdWNoYXMgdmVjZXMgbG9zIHNpZ25vcyBkZSBleGNsYW1hY2nDs24geSBzZSBvYnNlcnZhIHVuYSBlc2NyaXR1cmEgZGUgbmFycmFjacOzbiBwYXJhIHVuIHDDumJsaWNvIGFiaWVydG8uIA0KKiBfVHdpdHRlcl86IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAxNjcuMSBNQiwgcHJvdmllbmUgZGUgbGEgcmVkIHNvY2lhbCB0d2l0dGVyLCBkb25kZSBlbCBjb250ZW5pZG8gZXMgZXNwZWNpZmljYW1lbnRlIGVzdGFkb3VuaWRlbnNlLiBBZGVtw6FzLCBlbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzOyBzZSBlbmN1ZW50cmFuIGVtb3RpY29uZXMsIHRhbGVzIGNvbW8gY29yYXpvbmVzIHkgY2FyYXMgZXNjcml0YXMgbWVkaWFudGUgbG9zIHNpZ25vcyBvdG9ncsOhZmljb3MsIHNpZ25vcyBkZSBpbnRlcnJvZ2FjacOzbiB5IGV4Y2xhbWFjacOzbiwgaGFzaHRhZ3MgIyB5IG1lbmNpb25lcyBALg0KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLg0KDQoNCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6DQpgYGB7cn0NCmxpYnJhcnkoInJlYWRyIikNCmxpYnJhcnkoInRtIikNCg0KYGBgDQoNCkFob3JhLCBzZSBpbXBvcnRhbiBsb3MgZGF0b3MgeSBzZSBsZWVuDQpgYGB7cn0NCg0KI0M6L1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1DQp0ZXh0byA8LSBWQ29ycHVzKERpclNvdXJjZSgiL1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1IiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gImVuIikpDQpzZXQuc2VlZCgzKQ0KcG9yY2llbnRvIDwtIDAuMDUNCnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bykNCg0KYmxvZyA8LSB0ZXh0b1tbMV1dJGNvbnRlbnQgDQpibG9nIDwtIGFzLmRhdGEuZnJhbWUoYmxvZykNCg0KYGBgDQoNCg0K</div>
 
 
 

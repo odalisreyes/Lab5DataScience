@@ -1,6 +1,8 @@
 ---
 title: "Laboratorio 5"
-output: html_notebook
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ## Descripción de los datos
@@ -11,7 +13,6 @@ output: html_notebook
 
 Los paquetes que se usaron para este laboratorio fueron los siguientes:
 ```{r}
-install.packages("tm")
 library("readr")
 library("tm")
 
@@ -19,10 +20,16 @@ library("tm")
 
 Ahora, se importan los datos y se leen
 ```{r}
-texto <- VCorpus(DirSource("/Users/quiebres/Desktop/texts"), readerControl = list(language = "en"))
+
+#C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5
+texto <- VCorpus(DirSource("/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5"), readerControl = list(language = "en"))
 set.seed(3)
 porciento <- 0.05
 texto[[1]]$content <- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
+
+blog <- texto[[1]]$content 
+blog <- as.data.frame(blog)
+
 ```
 
 
