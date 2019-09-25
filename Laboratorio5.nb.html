@@ -1760,26 +1760,58 @@ summary {
 <p>Los paquetes que se usaron para este laboratorio fueron los siguientes:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5gYGAifQ== -->
-<pre class="r"><code>library(&quot;readr&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcInRtXCIpXG5gYGAifQ== -->
+<pre class="r"><code>install.packages(&quot;tm&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiSW5zdGFsbGluZyBwYWNrYWdlIGludG8g4oCYL1VzZXJzL3F1aWVicmVzL0xpYnJhcnkvUi8zLjYvbGlicmFyeeKAmVxuKGFzIOKAmGxpYuKAmSBpcyB1bnNwZWNpZmllZClcbmFsc28gaW5zdGFsbGluZyB0aGUgZGVwZW5kZW5jaWVzIOKAmE5MUOKAmSwg4oCYc2xhbeKAmVxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL21hY29zeC9lbC1jYXBpdGFuL2NvbnRyaWIvMy42L05MUF8wLjItMC50Z3onXG5Db250ZW50IHR5cGUgJ2FwcGxpY2F0aW9uL3gtZ3ppcCcgbGVuZ3RoIDM5MzIxMCBieXRlcyAoMzgzIEtCKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMzgzIEtCXG5cbnRyeWluZyBVUkwgJ2h0dHBzOi8vY3Jhbi5yc3R1ZGlvLmNvbS9iaW4vbWFjb3N4L2VsLWNhcGl0YW4vY29udHJpYi8zLjYvc2xhbV8wLjEtNDUudGd6J1xuQ29udGVudCB0eXBlICdhcHBsaWNhdGlvbi94LWd6aXAnIGxlbmd0aCAyMDUwMDAgYnl0ZXMgKDIwMCBLQilcbj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG5kb3dubG9hZGVkIDIwMCBLQlxuXG50cnlpbmcgVVJMICdodHRwczovL2NyYW4ucnN0dWRpby5jb20vYmluL21hY29zeC9lbC1jYXBpdGFuL2NvbnRyaWIvMy42L3RtXzAuNy02LnRneidcbkNvbnRlbnQgdHlwZSAnYXBwbGljYXRpb24veC1nemlwJyBsZW5ndGggMTExNTcxOSBieXRlcyAoMS4xIE1CKVxuPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT1cbmRvd25sb2FkZWQgMS4xIE1CXG4ifQ== -->
+<pre><code>Installing package into ‘/Users/quiebres/Library/R/3.6/library’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘NLP’, ‘slam’
+
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/NLP_0.2-0.tgz'
+Content type 'application/x-gzip' length 393210 bytes (383 KB)
+==================================================
+downloaded 383 KB
+
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/slam_0.1-45.tgz'
+Content type 'application/x-gzip' length 205000 bytes (200 KB)
+==================================================
+downloaded 200 KB
+
+trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.6/tm_0.7-6.tgz'
+Content type 'application/x-gzip' length 1115719 bytes (1.1 MB)
+==================================================
+downloaded 1.1 MB</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5UaGUgZG93bmxvYWRlZCBiaW5hcnkgcGFja2FnZXMgYXJlIGluXG5cdC92YXIvZm9sZGVycy82Ni9tMW1xaDdyeDNsc2Zoemx6NzFkNDhydjQwMDAwZ24vVC8vUnRtcEplV2NGNS9kb3dubG9hZGVkX3BhY2thZ2VzXG4ifQ== -->
+<pre><code>
+The downloaded binary packages are in
+    /var/folders/66/m1mqh7rx3lsfhzlz71d48rv40000gn/T//RtmpJeWcF5/downloaded_packages</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5saWJyYXJ5KFwidG1cIilcbmBgYCJ9 -->
+<pre class="r"><code>library(&quot;readr&quot;)
+library(&quot;tm&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBOTFBcbiJ9 -->
+<pre><code>Loading required package: NLP</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Ahora, se importan los datos y se leen</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0d2QoXCJDOi9Vc2Vycy9zbWF5ci9Eb2N1bWVudHMvVGVyY2VyIGHDsW8vU2VtZXN0cmUgNi9EYXRhIFNjaWVuY2UvTGFib3JhdG9yaW8gNVwiKVxuVVMuYmxvZ3MgPC0gcmVhZC5kZWxpbShcImVuX1VTLmJsb2dzLnR4dFwiKVxuVVMubmV3cyA8LSByZWFkLmRlbGltKFwiZW5fVVMubmV3cy50eHRcIilcblVTLnR3aXR0ZXIgPC0gcmVhZC5kZWxpbShcImVuX1VTLnR3aXR0ZXIudHh0XCIpXG5gYGAifQ== -->
-<pre class="r"><code>setwd(&quot;C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5&quot;)
-US.blogs &lt;- read.delim(&quot;en_US.blogs.txt&quot;)
-US.news &lt;- read.delim(&quot;en_US.news.txt&quot;)
-US.twitter &lt;- read.delim(&quot;en_US.twitter.txt&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGV4dG8gPC0gVkNvcnB1cyhEaXJTb3VyY2UoXCIvVXNlcnMvcXVpZWJyZXMvRGVza3RvcC90ZXh0c1wiKSwgcmVhZGVyQ29udHJvbCA9IGxpc3QobGFuZ3VhZ2UgPSBcImVuXCIpKVxuc2V0LnNlZWQoMylcbnBvcmNpZW50byA8LSAwLjA1XG50ZXh0b1tbMV1dJGNvbnRlbnQgPC0gc2FtcGxlKHRleHRvW1sxXV0kY29udGVudCxsZW5ndGgodGV4dG9bWzFdXSRjb250ZW50KSpwb3JjaWVudG8pXG5gYGAifQ== -->
+<pre class="r"><code>texto &lt;- VCorpus(DirSource(&quot;/Users/quiebres/Desktop/texts&quot;), readerControl = list(language = &quot;en&quot;))
+set.seed(3)
+porciento &lt;- 0.05
+texto[[1]]$content &lt;- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFib3JhdG9yaW8gNSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcwoqIF9CbG9nc186IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAgMjEwLjIgTUIsIHByb3ZpZW5lIGRlIHVuIGJsb2cgZXN0YWRvdW5pZGVuc2UuIEFkZW3DoXMsIGVsIHRpcG8gZGUgY29ycHVzIGVzIG1vbm9saW5nw7xlLCB5YSBxdWUgZWwgdGV4dG8gc2UgZW5jdWVudHJhIGVzY3JpdG8gc29sYW1lbnRlIGVuIGluZ2zDqXM7IHNlIGVuY3VlbnRyYW4gZW1vdGljb25lcywgdGFsZXMgY29tbyBjb3Jhem9uZXMgeSBjYXJhcyBlc2NyaXRhcyBtZWRpYW50ZSBsb3Mgc2lnbm9zIG9ydG9ncsOhZmljb3MuIEFwYXJlY2VuIG11Y2hhcyB2ZWNlcyBsb3Mgc2lnbm9zIGRlIGV4Y2xhbWFjacOzbiB5IHNlIG9ic2VydmEgdW5hIGVzY3JpdHVyYSBkZSBuYXJyYWNpw7NuIHBhcmEgdW4gcMO6YmxpY28gYWJpZXJ0by4gCiogX1R3aXR0ZXJfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgMTY3LjEgTUIsIHByb3ZpZW5lIGRlIGxhIHJlZCBzb2NpYWwgdHdpdHRlciwgZG9uZGUgZWwgY29udGVuaWRvIGVzIGVzcGVjaWZpY2FtZW50ZSBlc3RhZG91bmlkZW5zZS4gQWRlbcOhcywgZWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpczsgc2UgZW5jdWVudHJhbiBlbW90aWNvbmVzLCB0YWxlcyBjb21vIGNvcmF6b25lcyB5IGNhcmFzIGVzY3JpdGFzIG1lZGlhbnRlIGxvcyBzaWdub3Mgb3RvZ3LDoWZpY29zLCBzaWdub3MgZGUgaW50ZXJyb2dhY2nDs24geSBleGNsYW1hY2nDs24sIGhhc2h0YWdzICMgeSBtZW5jaW9uZXMgQC4KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLgoKCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6CmBgYHtyfQpsaWJyYXJ5KCJyZWFkciIpCmBgYAoKQWhvcmEsIHNlIGltcG9ydGFuIGxvcyBkYXRvcyB5IHNlIGxlZW4KYGBge3J9CnNldHdkKCJDOi9Vc2Vycy9zbWF5ci9Eb2N1bWVudHMvVGVyY2VyIGHDsW8vU2VtZXN0cmUgNi9EYXRhIFNjaWVuY2UvTGFib3JhdG9yaW8gNSIpClVTLmJsb2dzIDwtIHJlYWQuZGVsaW0oImVuX1VTLmJsb2dzLnR4dCIpClVTLm5ld3MgPC0gcmVhZC5kZWxpbSgiZW5fVVMubmV3cy50eHQiKQpVUy50d2l0dGVyIDwtIHJlYWQuZGVsaW0oImVuX1VTLnR3aXR0ZXIudHh0IikKYGBgCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFib3JhdG9yaW8gNSIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcwoqIF9CbG9nc186IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAgMjEwLjIgTUIsIHByb3ZpZW5lIGRlIHVuIGJsb2cgZXN0YWRvdW5pZGVuc2UuIEFkZW3DoXMsIGVsIHRpcG8gZGUgY29ycHVzIGVzIG1vbm9saW5nw7xlLCB5YSBxdWUgZWwgdGV4dG8gc2UgZW5jdWVudHJhIGVzY3JpdG8gc29sYW1lbnRlIGVuIGluZ2zDqXM7IHNlIGVuY3VlbnRyYW4gZW1vdGljb25lcywgdGFsZXMgY29tbyBjb3Jhem9uZXMgeSBjYXJhcyBlc2NyaXRhcyBtZWRpYW50ZSBsb3Mgc2lnbm9zIG9ydG9ncsOhZmljb3MuIEFwYXJlY2VuIG11Y2hhcyB2ZWNlcyBsb3Mgc2lnbm9zIGRlIGV4Y2xhbWFjacOzbiB5IHNlIG9ic2VydmEgdW5hIGVzY3JpdHVyYSBkZSBuYXJyYWNpw7NuIHBhcmEgdW4gcMO6YmxpY28gYWJpZXJ0by4gCiogX1R3aXR0ZXJfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgMTY3LjEgTUIsIHByb3ZpZW5lIGRlIGxhIHJlZCBzb2NpYWwgdHdpdHRlciwgZG9uZGUgZWwgY29udGVuaWRvIGVzIGVzcGVjaWZpY2FtZW50ZSBlc3RhZG91bmlkZW5zZS4gQWRlbcOhcywgZWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpczsgc2UgZW5jdWVudHJhbiBlbW90aWNvbmVzLCB0YWxlcyBjb21vIGNvcmF6b25lcyB5IGNhcmFzIGVzY3JpdGFzIG1lZGlhbnRlIGxvcyBzaWdub3Mgb3RvZ3LDoWZpY29zLCBzaWdub3MgZGUgaW50ZXJyb2dhY2nDs24geSBleGNsYW1hY2nDs24sIGhhc2h0YWdzICMgeSBtZW5jaW9uZXMgQC4KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLgoKCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6CmBgYHtyfQppbnN0YWxsLnBhY2thZ2VzKCJ0bSIpCmxpYnJhcnkoInJlYWRyIikKbGlicmFyeSgidG0iKQoKYGBgCgpBaG9yYSwgc2UgaW1wb3J0YW4gbG9zIGRhdG9zIHkgc2UgbGVlbgpgYGB7cn0KdGV4dG8gPC0gVkNvcnB1cyhEaXJTb3VyY2UoIi9Vc2Vycy9xdWllYnJlcy9EZXNrdG9wL3RleHRzIiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gImVuIikpCnNldC5zZWVkKDMpCnBvcmNpZW50byA8LSAwLjA1CnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bykKYGBgCgoK</div>
 
 
 

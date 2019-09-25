@@ -11,16 +11,18 @@ output: html_notebook
 
 Los paquetes que se usaron para este laboratorio fueron los siguientes:
 ```{r}
+install.packages("tm")
 library("readr")
+library("tm")
+
 ```
 
 Ahora, se importan los datos y se leen
 ```{r}
-setwd("C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5")
-US.blogs <- read.delim("en_US.blogs.txt")
-US.news <- read.delim("en_US.news.txt")
-US.twitter <- read.delim("en_US.twitter.txt")
+texto <- VCorpus(DirSource("/Users/quiebres/Desktop/texts"), readerControl = list(language = "en"))
+set.seed(3)
+porciento <- 0.05
+texto[[1]]$content <- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
 ```
-
 
 
