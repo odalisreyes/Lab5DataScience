@@ -1,8 +1,8 @@
 ---
 title: "Laboratorio 5"
 output:
-  pdf_document: default
   html_notebook: default
+  pdf_document: default
 ---
 
 ## Descripción de los datos
@@ -18,18 +18,27 @@ library("tm")
 
 ```
 
-Ahora, se importan los datos y se leen
+
+Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto
 ```{r}
 
 #C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5
-texto <- VCorpus(DirSource("/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5"), readerControl = list(language = "en"))
+# /Users/quiebres/Desktop/Texts
+texto <- VCorpus(DirSource("/Users/quiebres/Desktop/Texts"), readerControl = list(language = "en"))
 set.seed(3)
 porciento <- 0.05
 texto[[1]]$content <- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
+texto[[2]]$content <- sample(texto[[2]]$content,length(texto[[2]]$content)*porciento)
+texto[[3]]$content <- sample(texto[[3]]$content,length(texto[[3]]$content)*porciento)
 
 blog <- texto[[1]]$content 
 blog <- as.data.frame(blog)
 
+news <- texto[[2]]$content
+news <-as.data.frame(news)
+
+twitter <- texto[[3]]$content
+twitter <- as.data.frame(twitter)
 ```
 
 

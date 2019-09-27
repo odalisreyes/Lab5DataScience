@@ -1750,44 +1750,54 @@ summary {
 
 
 <!-- rnb-text-begin -->
-<div id="descripcian-de-los-datos" class="section level2">
-<h2>DescripciÃ³n de los datos</h2>
+<div id="descripcion-de-los-datos" class="section level2">
+<h2>Descripción de los datos</h2>
 <ul>
-<li><em>Blogs</em>: El tamaÃ±o de estos datos son de aproximadamente 210.2 MB, proviene de un blog estadounidense. AdemÃ¡s, el tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortogrÃ¡ficos. Aparecen muchas veces los signos de exclamaciÃ³n y se observa una escritura de narraciÃ³n para un pÃºblico abierto.</li>
-<li><em>Twitter</em>: El tamaÃ±o de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. AdemÃ¡s, el tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otogrÃ¡ficos, signos de interrogaciÃ³n y exclamaciÃ³n, hashtags # y menciones @.</li>
-<li><em>News</em>: El tamaÃ±o de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en lÃ­nea estadounidense. El tipo de corpus es monolingÃ¼e, ya que el texto se encuentra escrito solamente en inglÃ©s. No se observan emoticones pero sÃ­ links y caracteres especiales, asÃ­ como los signos dÃ³lar.</li>
+<li><em>Blogs</em>: El tamaño de estos datos son de aproximadamente 210.2 MB, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto.</li>
+<li><em>Twitter</em>: El tamaño de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.</li>
+<li><em>News</em>: El tamaño de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.</li>
 </ul>
 <p>Los paquetes que se usaron para este laboratorio fueron los siguientes:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5saWJyYXJ5KFwidG1cIilcblxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcInJlYWRyXCIpXG5saWJyYXJ5KFwidG1cIilcbmBgYCJ9 -->
 <pre class="r"><code>library(&quot;readr&quot;)
-library(&quot;tm&quot;)
-</code></pre>
+library(&quot;tm&quot;)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBOTFBcbiJ9 -->
+<pre><code>Loading required package: NLP</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Ahora, se importan los datos y se leen</p>
+<p>Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jQzovVXNlcnMvc21heXIvRG9jdW1lbnRzL1RlcmNlciBhw7FvL1NlbWVzdHJlIDYvRGF0YSBTY2llbmNlL0xhYm9yYXRvcmlvIDVcbnRleHRvIDwtIFZDb3JwdXMoRGlyU291cmNlKFwiL1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1XCIpLCByZWFkZXJDb250cm9sID0gbGlzdChsYW5ndWFnZSA9IFwiZW5cIikpXG5zZXQuc2VlZCgzKVxucG9yY2llbnRvIDwtIDAuMDVcbnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bylcblxuYmxvZyA8LSB0ZXh0b1tbMV1dJGNvbnRlbnQgXG5ibG9nIDwtIGFzLmRhdGEuZnJhbWUoYmxvZylcblxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jQzovVXNlcnMvc21heXIvRG9jdW1lbnRzL1RlcmNlciBhw7FvL1NlbWVzdHJlIDYvRGF0YSBTY2llbmNlL0xhYm9yYXRvcmlvIDVcbiMgL1VzZXJzL3F1aWVicmVzL0Rlc2t0b3AvVGV4dHNcbnRleHRvIDwtIFZDb3JwdXMoRGlyU291cmNlKFwiL1VzZXJzL3F1aWVicmVzL0Rlc2t0b3AvVGV4dHNcIiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gXCJlblwiKSlcbnNldC5zZWVkKDMpXG5wb3JjaWVudG8gPC0gMC4wNVxudGV4dG9bWzFdXSRjb250ZW50IDwtIHNhbXBsZSh0ZXh0b1tbMV1dJGNvbnRlbnQsbGVuZ3RoKHRleHRvW1sxXV0kY29udGVudCkqcG9yY2llbnRvKVxudGV4dG9bWzJdXSRjb250ZW50IDwtIHNhbXBsZSh0ZXh0b1tbMl1dJGNvbnRlbnQsbGVuZ3RoKHRleHRvW1syXV0kY29udGVudCkqcG9yY2llbnRvKVxudGV4dG9bWzNdXSRjb250ZW50IDwtIHNhbXBsZSh0ZXh0b1tbM11dJGNvbnRlbnQsbGVuZ3RoKHRleHRvW1szXV0kY29udGVudCkqcG9yY2llbnRvKVxuXG5ibG9nIDwtIHRleHRvW1sxXV0kY29udGVudCBcbmJsb2cgPC0gYXMuZGF0YS5mcmFtZShibG9nKVxuXG5uZXdzIDwtIHRleHRvW1syXV0kY29udGVudFxubmV3cyA8LWFzLmRhdGEuZnJhbWUobmV3cylcblxudHdpdHRlciA8LSB0ZXh0b1tbM11dJGNvbnRlbnRcbnR3aXR0ZXIgPC0gYXMuZGF0YS5mcmFtZSh0d2l0dGVyKVxuYGBgIn0= -->
 <pre class="r"><code>
-#C:/Users/smayr/Documents/Tercer aÃ±o/Semestre 6/Data Science/Laboratorio 5
-texto &lt;- VCorpus(DirSource(&quot;/Users/smayr/Documents/Tercer aÃ±o/Semestre 6/Data Science/Laboratorio 5&quot;), readerControl = list(language = &quot;en&quot;))
+#C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5
+# /Users/quiebres/Desktop/Texts
+texto &lt;- VCorpus(DirSource(&quot;/Users/quiebres/Desktop/Texts&quot;), readerControl = list(language = &quot;en&quot;))
 set.seed(3)
 porciento &lt;- 0.05
 texto[[1]]$content &lt;- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
+texto[[2]]$content &lt;- sample(texto[[2]]$content,length(texto[[2]]$content)*porciento)
+texto[[3]]$content &lt;- sample(texto[[3]]$content,length(texto[[3]]$content)*porciento)
 
 blog &lt;- texto[[1]]$content 
 blog &lt;- as.data.frame(blog)
-</code></pre>
+
+news &lt;- texto[[2]]$content
+news &lt;-as.data.frame(news)
+
+twitter &lt;- texto[[3]]$content
+twitter &lt;- as.data.frame(twitter)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYm9yYXRvcmlvIDUiDQpvdXRwdXQ6DQogIHBkZl9kb2N1bWVudDogZGVmYXVsdA0KICBodG1sX25vdGVib29rOiBkZWZhdWx0DQotLS0NCg0KIyMgRGVzY3JpcGNpw7NuIGRlIGxvcyBkYXRvcw0KKiBfQmxvZ3NfOiBFbCB0YW1hw7FvIGRlIGVzdG9zIGRhdG9zIHNvbiBkZSBhcHJveGltYWRhbWVudGUgIDIxMC4yIE1CLCBwcm92aWVuZSBkZSB1biBibG9nIGVzdGFkb3VuaWRlbnNlLiBBZGVtw6FzLCBlbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzOyBzZSBlbmN1ZW50cmFuIGVtb3RpY29uZXMsIHRhbGVzIGNvbW8gY29yYXpvbmVzIHkgY2FyYXMgZXNjcml0YXMgbWVkaWFudGUgbG9zIHNpZ25vcyBvcnRvZ3LDoWZpY29zLiBBcGFyZWNlbiBtdWNoYXMgdmVjZXMgbG9zIHNpZ25vcyBkZSBleGNsYW1hY2nDs24geSBzZSBvYnNlcnZhIHVuYSBlc2NyaXR1cmEgZGUgbmFycmFjacOzbiBwYXJhIHVuIHDDumJsaWNvIGFiaWVydG8uIA0KKiBfVHdpdHRlcl86IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAxNjcuMSBNQiwgcHJvdmllbmUgZGUgbGEgcmVkIHNvY2lhbCB0d2l0dGVyLCBkb25kZSBlbCBjb250ZW5pZG8gZXMgZXNwZWNpZmljYW1lbnRlIGVzdGFkb3VuaWRlbnNlLiBBZGVtw6FzLCBlbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzOyBzZSBlbmN1ZW50cmFuIGVtb3RpY29uZXMsIHRhbGVzIGNvbW8gY29yYXpvbmVzIHkgY2FyYXMgZXNjcml0YXMgbWVkaWFudGUgbG9zIHNpZ25vcyBvdG9ncsOhZmljb3MsIHNpZ25vcyBkZSBpbnRlcnJvZ2FjacOzbiB5IGV4Y2xhbWFjacOzbiwgaGFzaHRhZ3MgIyB5IG1lbmNpb25lcyBALg0KKiBfTmV3c186IEVsIHRhbWHDsW8gZGUgbG9zIGRhdG9zIGVzIGFwcm94aW1hZGFtZW50ZSBkZSAyMDUuOCBNQiwgcHJvdmllbmUgZGUgdW4gbm90aWNpZXJvIGVuIGzDrW5lYSBlc3RhZG91bmlkZW5zZS4gRWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpcy4gTm8gc2Ugb2JzZXJ2YW4gZW1vdGljb25lcyBwZXJvIHPDrSBsaW5rcyB5IGNhcmFjdGVyZXMgZXNwZWNpYWxlcywgYXPDrSBjb21vIGxvcyBzaWdub3MgZMOzbGFyLg0KDQoNCkxvcyBwYXF1ZXRlcyBxdWUgc2UgdXNhcm9uIHBhcmEgZXN0ZSBsYWJvcmF0b3JpbyBmdWVyb24gbG9zIHNpZ3VpZW50ZXM6DQpgYGB7cn0NCmxpYnJhcnkoInJlYWRyIikNCmxpYnJhcnkoInRtIikNCg0KYGBgDQoNCkFob3JhLCBzZSBpbXBvcnRhbiBsb3MgZGF0b3MgeSBzZSBsZWVuDQpgYGB7cn0NCg0KI0M6L1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1DQp0ZXh0byA8LSBWQ29ycHVzKERpclNvdXJjZSgiL1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1IiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gImVuIikpDQpzZXQuc2VlZCgzKQ0KcG9yY2llbnRvIDwtIDAuMDUNCnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bykNCg0KYmxvZyA8LSB0ZXh0b1tbMV1dJGNvbnRlbnQgDQpibG9nIDwtIGFzLmRhdGEuZnJhbWUoYmxvZykNCg0KYGBgDQoNCg0K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTGFib3JhdG9yaW8gNSIKb3V0cHV0OgogIGh0bWxfbm90ZWJvb2s6IGRlZmF1bHQKICBwZGZfZG9jdW1lbnQ6IGRlZmF1bHQKLS0tCgojIyBEZXNjcmlwY2nDs24gZGUgbG9zIGRhdG9zCiogX0Jsb2dzXzogRWwgdGFtYcOxbyBkZSBlc3RvcyBkYXRvcyBzb24gZGUgYXByb3hpbWFkYW1lbnRlICAyMTAuMiBNQiwgcHJvdmllbmUgZGUgdW4gYmxvZyBlc3RhZG91bmlkZW5zZS4gQWRlbcOhcywgZWwgdGlwbyBkZSBjb3JwdXMgZXMgbW9ub2xpbmfDvGUsIHlhIHF1ZSBlbCB0ZXh0byBzZSBlbmN1ZW50cmEgZXNjcml0byBzb2xhbWVudGUgZW4gaW5nbMOpczsgc2UgZW5jdWVudHJhbiBlbW90aWNvbmVzLCB0YWxlcyBjb21vIGNvcmF6b25lcyB5IGNhcmFzIGVzY3JpdGFzIG1lZGlhbnRlIGxvcyBzaWdub3Mgb3J0b2dyw6FmaWNvcy4gQXBhcmVjZW4gbXVjaGFzIHZlY2VzIGxvcyBzaWdub3MgZGUgZXhjbGFtYWNpw7NuIHkgc2Ugb2JzZXJ2YSB1bmEgZXNjcml0dXJhIGRlIG5hcnJhY2nDs24gcGFyYSB1biBww7pibGljbyBhYmllcnRvLiAKKiBfVHdpdHRlcl86IEVsIHRhbWHDsW8gZGUgZXN0b3MgZGF0b3Mgc29uIGRlIGFwcm94aW1hZGFtZW50ZSAxNjcuMSBNQiwgcHJvdmllbmUgZGUgbGEgcmVkIHNvY2lhbCB0d2l0dGVyLCBkb25kZSBlbCBjb250ZW5pZG8gZXMgZXNwZWNpZmljYW1lbnRlIGVzdGFkb3VuaWRlbnNlLiBBZGVtw6FzLCBlbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzOyBzZSBlbmN1ZW50cmFuIGVtb3RpY29uZXMsIHRhbGVzIGNvbW8gY29yYXpvbmVzIHkgY2FyYXMgZXNjcml0YXMgbWVkaWFudGUgbG9zIHNpZ25vcyBvdG9ncsOhZmljb3MsIHNpZ25vcyBkZSBpbnRlcnJvZ2FjacOzbiB5IGV4Y2xhbWFjacOzbiwgaGFzaHRhZ3MgIyB5IG1lbmNpb25lcyBALgoqIF9OZXdzXzogRWwgdGFtYcOxbyBkZSBsb3MgZGF0b3MgZXMgYXByb3hpbWFkYW1lbnRlIGRlIDIwNS44IE1CLCBwcm92aWVuZSBkZSB1biBub3RpY2llcm8gZW4gbMOtbmVhIGVzdGFkb3VuaWRlbnNlLiBFbCB0aXBvIGRlIGNvcnB1cyBlcyBtb25vbGluZ8O8ZSwgeWEgcXVlIGVsIHRleHRvIHNlIGVuY3VlbnRyYSBlc2NyaXRvIHNvbGFtZW50ZSBlbiBpbmdsw6lzLiBObyBzZSBvYnNlcnZhbiBlbW90aWNvbmVzIHBlcm8gc8OtIGxpbmtzIHkgY2FyYWN0ZXJlcyBlc3BlY2lhbGVzLCBhc8OtIGNvbW8gbG9zIHNpZ25vcyBkw7NsYXIuCgoKTG9zIHBhcXVldGVzIHF1ZSBzZSB1c2Fyb24gcGFyYSBlc3RlIGxhYm9yYXRvcmlvIGZ1ZXJvbiBsb3Mgc2lndWllbnRlczoKYGBge3J9CmxpYnJhcnkoInJlYWRyIikKbGlicmFyeSgidG0iKQoKYGBgCgoKQWhvcmEsIHNlIGltcG9ydGFuIGxvcyBkYXRvcywgc2UgbGVlbiB5IHNlIGNyZWFuIHNhbXBsZXMgYWxlYXRvcmlhcyBjb24gNSUgZGUgbGFzIG9ic2VydmFjaW9uZXMgcGFyYSBjYWRhIHRleHRvCmBgYHtyfQoKI0M6L1VzZXJzL3NtYXlyL0RvY3VtZW50cy9UZXJjZXIgYcOxby9TZW1lc3RyZSA2L0RhdGEgU2NpZW5jZS9MYWJvcmF0b3JpbyA1CiMgL1VzZXJzL3F1aWVicmVzL0Rlc2t0b3AvVGV4dHMKdGV4dG8gPC0gVkNvcnB1cyhEaXJTb3VyY2UoIi9Vc2Vycy9xdWllYnJlcy9EZXNrdG9wL1RleHRzIiksIHJlYWRlckNvbnRyb2wgPSBsaXN0KGxhbmd1YWdlID0gImVuIikpCnNldC5zZWVkKDMpCnBvcmNpZW50byA8LSAwLjA1CnRleHRvW1sxXV0kY29udGVudCA8LSBzYW1wbGUodGV4dG9bWzFdXSRjb250ZW50LGxlbmd0aCh0ZXh0b1tbMV1dJGNvbnRlbnQpKnBvcmNpZW50bykKdGV4dG9bWzJdXSRjb250ZW50IDwtIHNhbXBsZSh0ZXh0b1tbMl1dJGNvbnRlbnQsbGVuZ3RoKHRleHRvW1syXV0kY29udGVudCkqcG9yY2llbnRvKQp0ZXh0b1tbM11dJGNvbnRlbnQgPC0gc2FtcGxlKHRleHRvW1szXV0kY29udGVudCxsZW5ndGgodGV4dG9bWzNdXSRjb250ZW50KSpwb3JjaWVudG8pCgpibG9nIDwtIHRleHRvW1sxXV0kY29udGVudCAKYmxvZyA8LSBhcy5kYXRhLmZyYW1lKGJsb2cpCgpuZXdzIDwtIHRleHRvW1syXV0kY29udGVudApuZXdzIDwtYXMuZGF0YS5mcmFtZShuZXdzKQoKdHdpdHRlciA8LSB0ZXh0b1tbM11dJGNvbnRlbnQKdHdpdHRlciA8LSBhcy5kYXRhLmZyYW1lKHR3aXR0ZXIpCmBgYAoKCg==</div>
 
 
 
