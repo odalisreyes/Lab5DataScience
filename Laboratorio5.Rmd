@@ -15,6 +15,7 @@ Los paquetes que se usaron para este laboratorio fueron los siguientes:
 ```{r}
 library("readr")
 library("tm")
+library("SnowballC")
 
 ```
 
@@ -31,14 +32,65 @@ texto[[1]]$content <- sample(texto[[1]]$content,length(texto[[1]]$content)*porci
 texto[[2]]$content <- sample(texto[[2]]$content,length(texto[[2]]$content)*porciento)
 texto[[3]]$content <- sample(texto[[3]]$content,length(texto[[3]]$content)*porciento)
 
-blog <- texto[[1]]$content 
-blog <- as.data.frame(blog)
 
-news <- texto[[2]]$content
-news <-as.data.frame(news)
 
-twitter <- texto[[3]]$content
-twitter <- as.data.frame(twitter)
+blog <- Corpus(VectorSource(texto[[1]]$content))
+
+news <- Corpus(VectorSource(texto[[2]]$content))
+
+twitter <- Corpus(VectorSource(texto[[3]]$content))
+
+
+
 ```
 
+Se le pide un summary a los textos de blog, news y twitter
+```{r}
+# No sé como hacerlo
+```
+Se elemininan las puntuaciones de los textos
+```{r}
+blog <- tm_map(blog,removePunctuation)
 
+for (j in seq(blog)) {
+    blog[[j]] <- gsub("/", " ", blog[[j]])
+    blog[[j]] <- gsub("@", " ", blog[[j]])
+    blog[[j]] <- gsub("\\|", " ", blog[[j]])
+}
+
+news <- tm_map(news,removePunctuation)
+
+for (j in seq(news)) {
+    news[[j]] <- gsub("/", " ", news[[j]])
+    news[[j]] <- gsub("@", " ", news[[j]])
+    news[[j]] <- gsub("\\|", " ", news[[j]])
+}
+
+twitter <- tm_map(twitter, removePunctuation)
+
+for (j in seq()) {
+    twitter[[j]] <- gsub("/", " ", twitter[[j]])
+    twitter[[j]] <- gsub("@", " ", twitter[[j]])
+    twitter[[j]] <- gsub("\\|", " ", twitter[[j]])
+    twitter[[j]] <- gsub("#", " ", twitter[[j]])
+}
+
+```
+Se cambian las letras a minúsculas
+```{r}
+blog <- tm_map(blog, tolower)
+
+news <- tm_map(news,tolower)
+
+twitter <- tm_map(twitter, tolower)
+
+```
+Se elminan las stopwords
+```{r}
+blog <- tm_map(blog, removeWords, stopwords("english"))
+
+news <- tm_map(news, removeWords, stopwords("english"))
+
+twitter <- tm_map(twitter, removeWords, stopwords("english"))
+
+```
