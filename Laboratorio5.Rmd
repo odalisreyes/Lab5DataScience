@@ -6,77 +6,56 @@ output:
 ---
 
 ## Descripción de los datos
-* _Blogs_: El tamaño de estos datos son de aproximadamente  210.2 MB, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto. 
-* _Twitter_: El tamaño de estos datos son de aproximadamente 167.1 MB, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.
-* _News_: El tamaño de los datos es aproximadamente de 205.8 MB, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.
+* _Blogs_: El tamaño de estos datos son de 899,288 palabras, proviene de un blog estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos ortográficos. Aparecen muchas veces los signos de exclamación y se observa una escritura de narración para un público abierto. 
+* _News_: El tamaño de los datos es aproximadamente de 1,010,242, proviene de un noticiero en línea estadounidense. El tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés. No se observan emoticones pero sí links y caracteres especiales, así como los signos dólar.
+* _Twitter_: El tamaño de estos datos son de aproximadamente 2,360,148 palabras, proviene de la red social twitter, donde el contenido es especificamente estadounidense. Además, el tipo de corpus es monolingüe, ya que el texto se encuentra escrito solamente en inglés; se encuentran emoticones, tales como corazones y caras escritas mediante los signos otográficos, signos de interrogación y exclamación, hashtags # y menciones @.
 
-
-Los paquetes que se usaron para este laboratorio fueron los siguientes:
+## Limpieza y preprocesamiento
+El objetivo de este apartado es limpiar la muestra de 5% de los 3 textos usados: blogs, news y twitter. Los paquetes que se usaron para este laboratorio fueron los siguientes:
 ```{r}
-library("readr")
-library("tm")
-library("SnowballC")
+library("readr") #Lee los archivos 
+library("tm")  #Contiene tranformaciones para el text mining
+library("SnowballC") #Stopwords
 
 ```
 
+Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto. Esto se hizo con el fin de reducir el tamaño de la muestra, ya que cada archivo de texto pesa demasiado y dificulta la hora de correr el programa. Cabe mencionar lo siguiente: 
 
-Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto
+* _texto[[1]]$content_: Hace referencia al archivo de Blogs. 
+* _texto[[2]]$content_: Hace referencia al archivo de News. 
+* _texto[[3]]$content_: Hace referencia al archivo de Twitter. 
 ```{r}
+#-------------------------------------------------
+# Directorios para de cada integrante del grupo
 
 #C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5
 # /Users/quiebres/Desktop/Texts
-texto <- VCorpus(DirSource("/Users/quiebres/Desktop/Texts"), readerControl = list(language = "en"))
+#/Users/odalisrg/Downloads/Textos
+#-------------------------------------------------
+
+texto <- VCorpus(DirSource("/Users/odalisrg/Downloads/Textos"), readerControl = list(language = "en"))
+
+# Se deja fijo la muestra aleatoria
 set.seed(3)
 porciento <- 0.05
 texto[[1]]$content <- sample(texto[[1]]$content,length(texto[[1]]$content)*porciento)
 texto[[2]]$content <- sample(texto[[2]]$content,length(texto[[2]]$content)*porciento)
 texto[[3]]$content <- sample(texto[[3]]$content,length(texto[[3]]$content)*porciento)
 
-
-
+# Asignación de nuevas variables
 blog <- Corpus(VectorSource(texto[[1]]$content))
-
 news <- Corpus(VectorSource(texto[[2]]$content))
-
 twitter <- Corpus(VectorSource(texto[[3]]$content))
-
-
-
 ```
 
-Se le pide un summary a los textos de blog, news y twitter
+Se realiza una vista previa para cada archivo, con el fin de saber la cantidad de palabras que hay en cada muestra y verificar que la extracción de datos aleatorios se haya realizado correctamente para las muestras del 5%. Se observa que para **blogs**, quedaron 44,964 palabras; para **news**, quedaron 50,521 palabras; para **twitter**, quedaron 118,007 palabras.
 ```{r}
-# No sé como hacerlo
+inspect(blog) 
+inspect(news)
+inspect(twitter)
 ```
-Se elemininan las puntuaciones de los textos
-```{r}
-blog <- tm_map(blog,removePunctuation)
 
-for (j in seq(blog)) {
-    blog[[j]] <- gsub("/", " ", blog[[j]])
-    blog[[j]] <- gsub("@", " ", blog[[j]])
-    blog[[j]] <- gsub("\\|", " ", blog[[j]])
-}
-
-news <- tm_map(news,removePunctuation)
-
-for (j in seq(news)) {
-    news[[j]] <- gsub("/", " ", news[[j]])
-    news[[j]] <- gsub("@", " ", news[[j]])
-    news[[j]] <- gsub("\\|", " ", news[[j]])
-}
-
-twitter <- tm_map(twitter, removePunctuation)
-
-for (j in seq()) {
-    twitter[[j]] <- gsub("/", " ", twitter[[j]])
-    twitter[[j]] <- gsub("@", " ", twitter[[j]])
-    twitter[[j]] <- gsub("\\|", " ", twitter[[j]])
-    twitter[[j]] <- gsub("#", " ", twitter[[j]])
-}
-
-```
-Se cambian las letras a minúsculas
+Se cambian las letras a minúsculas, así se logra obtener un texto más homogéneo. 
 ```{r}
 blog <- tm_map(blog, tolower)
 
@@ -85,12 +64,76 @@ news <- tm_map(news,tolower)
 twitter <- tm_map(twitter, tolower)
 
 ```
-Se elminan las stopwords
+
+Por último, se eliminan los emoticones, las url, usuario de twitter y hashtags que aparecen en los textos. Se usó la función de gsub() para facilitar y ahorrar el tema de los espacios. A continuación se explican a detalle de la definición dentro de gsub():
+
+* *[\^\x01-\x7F]*: En este caso, el ^ significa que el gsub() va a borrar todo excepto lo que sigue a continuación: \x01-\x7F, es decir, borrará todo excepto los caracteres del código ASCII. Basicamente esta función ayuda a eliminar emoticones.  
+* *http[[:alnum:][:punct:]]*: Busca las palabras que empiecen con http y elimina los caracteres que siguen después de él, incluyendo signos de puntuación.
+* *@[[:alnum:][:punct:]]$*: Busca las palabras que empiecen con una arroba (una mención, en el caso de twitter) y elimina los caracteres que siguen después de ello, incluyendo signos de puntuación. 
+* *#[^[:space:]]*: Busca los hashtags (palabras que empiecen con el #) y las elimina. En este caso no es necesario colocar los signos de puntuación. 
+```{r}
+for (j in seq(blog)) {
+  blog[[j]] <- gsub("[^\x01-\x7F]", "", blog[[j]])
+  blog[[j]] <- gsub("http[[:alnum:][:punct:]]*", "", blog[[j]])
+  blog[[j]] <- gsub("@[[:alnum:][:punct:]]*", "", blog[[j]])
+  blog[[j]] <- gsub("#[^[:space:]]*", "", blog[[j]])
+}
+
+
+for (j in seq(news)) {
+  news[[j]] <- gsub("[^\x01-\x7F]", "", news[[j]])
+  news[[j]] <- gsub("http[[:alnum:][:punct:]]*", "", news[[j]])
+  news[[j]] <- gsub("@[[:alnum:][:punct:]]*", "", news[[j]])
+  news[[j]] <- gsub("#[^[:space:]]*", "", news[[j]])
+}
+
+
+for (j in seq()) {
+  twitter[[j]] <- gsub("[^\x01-\x7F]", "", twitter[[j]])
+  twitter[[j]] <- gsub("http[[:alnum:][:punct:]]*", "", twitter[[j]])
+  twitter[[j]] <- gsub("@[[:alnum:][:punct:]]*", "", twitter[[j]])
+  twitter[[j]] <- gsub("#[^[:space:]]*", "", twitter[[j]])
+}
+```
+
+Se elminan todos los artículos y preposicione con la función de *stopwords()*. Esta función permite eliminar aquellas palabras que están juntadas por apóstrofes en el idioma inglés. 
 ```{r}
 blog <- tm_map(blog, removeWords, stopwords("english"))
 
 news <- tm_map(news, removeWords, stopwords("english"))
 
 twitter <- tm_map(twitter, removeWords, stopwords("english"))
+```
 
+Se decidió eliminar los signos de puntuación mediante la función **gsub** ya que la función removePuntuacion() del paquete tm, lo que hace es que no solo elimina los caracteres especiales, sino que también el espacio entre las palabras, siempre y cuando los signos de puntuación estén pegados a las palabras y no hayan espacios. Cabe mencionar que está función elimina también los caracteres especiales, tales como $ @ / # etc. 
+```{r}
+for (j in seq(blog)) {
+    blog[[j]] <- gsub("[[:punct:]]"," ", blog[[j]])
+}
+
+for (j in seq(news)) {
+    news[[j]] <- gsub("[[:punct:]]"," ", news[[j]])
+}
+
+for (j in seq()) {
+    twitter[[j]] <- gsub("[[:punct:]]"," ", twitter[[j]])
+}
+```
+
+También se decidió eliminar las conjugaciones de las palabras (pasado, futuro, gerundios, etc) y se dejó la palabra escrita en el presente. Se le aplica a todo el corpus de las muestras con la ayuda de la función tm_map().
+```{r}
+blog <- tm_map(blog, stemDocument)
+
+news <- tm_map(news, stemDocument)
+
+twitter <- tm_map(twitter, stemDocument)
+```
+
+Se eliminan los números, ya que consideramos que interferirán en las predicciones; es de suma importancia lograr predecir las primeras tres palabras y consideramos que es más sencillo si eliminamos los números. 
+```{r}
+blog <- tm_map(blog, removeNumbers)
+
+news <- tm_map(news, removeNumbers)
+
+twitter <- tm_map(twitter, removeNumbers)
 ```
