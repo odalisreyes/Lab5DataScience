@@ -65,7 +65,7 @@ twitter <- tm_map(twitter, tolower)
 
 ```
 
-Por último, se eliminan los emoticones, las url, usuario de twitter y hashtags que aparecen en los textos. Se usó la función de gsub() para facilitar y ahorrar el tema de los espacios. A continuación se explican a detalle de la definición dentro de gsub():
+Se eliminan los emoticones, las url, usuario de twitter y hashtags que aparecen en los textos. Se usó la función de gsub() para facilitar y ahorrar el tema de los espacios. A continuación se explican a detalle de la definición dentro de gsub():
 
 * *[\^\x01-\x7F]*: En este caso, el ^ significa que el gsub() va a borrar todo excepto lo que sigue a continuación: \x01-\x7F, es decir, borrará todo excepto los caracteres del código ASCII. Basicamente esta función ayuda a eliminar emoticones.  
 * *http[[:alnum:][:punct:]]*: Busca las palabras que empiecen con http y elimina los caracteres que siguen después de él, incluyendo signos de puntuación.
@@ -96,7 +96,7 @@ for (j in seq()) {
 }
 ```
 
-Se elminan todos los artículos y preposicione con la función de *stopwords()*. Esta función permite eliminar aquellas palabras que están juntadas por apóstrofes en el idioma inglés. 
+Se elminan todos los artículos y preposiciones con la función de *stopwords()*. Esta función permite eliminar aquellas palabras que están juntadas por apóstrofes en el idioma inglés. 
 ```{r}
 blog <- tm_map(blog, removeWords, stopwords("english"))
 
@@ -129,7 +129,7 @@ news <- tm_map(news, stemDocument)
 twitter <- tm_map(twitter, stemDocument)
 ```
 
-Se eliminan los números, ya que consideramos que interferirán en las predicciones; es de suma importancia lograr predecir las primeras tres palabras y consideramos que es más sencillo si eliminamos los números. 
+Por último, se eliminan los números, ya que consideramos que interferirán en las predicciones; es de suma importancia lograr predecir las primeras tres palabras y consideramos que es más sencillo si eliminamos los números. 
 ```{r}
 blog <- tm_map(blog, removeNumbers)
 
