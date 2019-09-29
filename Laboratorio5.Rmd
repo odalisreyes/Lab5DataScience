@@ -43,7 +43,7 @@ Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de la
 #/Users/odalisrg/Downloads/Textos
 #-------------------------------------------------
 
-texto <- VCorpus(DirSource("/Users/quiebres/Desktop/Texts"), readerControl = list(language = "en"))
+texto <- VCorpus(DirSource("/Users/odalisrg/Downloads/Textos"), readerControl = list(language = "en"))
 
 # Se deja fijo la muestra aleatoria
 set.seed(3)
@@ -66,6 +66,7 @@ Se realiza una vista previa para cada archivo, con el fin de saber la cantidad d
 #inspect(twitter)
 ```
 
+### Letras mayúsculas a minúsculas
 Se cambian las letras a minúsculas, así se logra obtener un texto más homogéneo. 
 ```{r}
 blog <- tm_map(blog, tolower)
@@ -76,6 +77,7 @@ twitter <- tm_map(twitter, tolower)
 
 ```
 
+### Eliminación de caracteres especiales, emoticones y url
 Se eliminan los emoticones, las url, usuario de twitter y hashtags que aparecen en los textos. Se usó la función de gsub() para facilitar y ahorrar el tema de los espacios. A continuación se explican a detalle de la definición dentro de gsub():
 
 * *[\^\x01-\x7F]*: En este caso, el ^ significa que el gsub() va a borrar todo excepto lo que sigue a continuación: \x01-\x7F, es decir, borrará todo excepto los caracteres del código ASCII. Basicamente esta función ayuda a eliminar emoticones.  
@@ -107,6 +109,7 @@ for (j in seq(twitter)) {
 }
 ```
 
+### Eliminación de stopwords
 Se elminan todos los artículos y preposiciones con la función de *stopwords()*. Esta función permite eliminar aquellas palabras que están juntadas por apóstrofes en el idioma inglés. 
 ```{r}
 blog <- tm_map(blog, removeWords, stopwords("english"))
@@ -116,30 +119,41 @@ news <- tm_map(news, removeWords, stopwords("english"))
 twitter <- tm_map(twitter, removeWords, stopwords("english"))
 ```
 
+### Eliminación de signos de puntuación
 Se decidió eliminar los signos de puntuación mediante la función **gsub** ya que la función removePuntuacion() del paquete tm, lo que hace es que no solo elimina los caracteres especiales, sino que también el espacio entre las palabras, siempre y cuando los signos de puntuación estén pegados a las palabras y no hayan espacios. Cabe mencionar que está función elimina también los caracteres especiales, tales como $ @ / # etc. 
 ```{r}
-for (j in seq(blog)) {
-    blog[[j]] <- gsub("[[:punct:]]"," ", blog[[j]])
-}
+#for (j in seq(blog)) {
+#    blog[[j]] <- gsub("[[:punct:]]"," ", blog[[j]])
+#}
 
-for (j in seq(news)) {
-    news[[j]] <- gsub("[[:punct:]]"," ", news[[j]])
-}
+#for (j in seq(news)) {
+#    news[[j]] <- gsub("[[:punct:]]"," ", news[[j]])
+#}
 
-for (j in seq()) {
-    twitter[[j]] <- gsub("[[:punct:]]"," ", twitter[[j]])
-}
+#for (j in seq()) {
+#    twitter[[j]] <- gsub("[[:punct:]]"," ", twitter[[j]])
+#}
+
+blog <- tm_map(blog, removePunctuation)
+
+news <- tm_map(news, removePunctuation)
+
+twitter <- tm_map(twitter, removePunctuation)
+
 ```
 
+### Eliminación de conjugaciones de palabras
 También se decidió eliminar las conjugaciones de las palabras (pasado, futuro, gerundios, etc) y se dejó la palabra escrita en el presente. Se le aplica a todo el corpus de las muestras con la ayuda de la función tm_map().
 ```{r}
-blog <- tm_map(blog, stemDocument)
+#blog <- tm_map(blog, stemDocument)
 
-news <- tm_map(news, stemDocument)
+#news <- tm_map(news, stemDocument)
 
-twitter <- tm_map(twitter, stemDocument)
+#twitter <- tm_map(twitter, stemDocument)
 ```
+Cuando realizamos este procedimiento, nos dimos cuenta que al momento de sacar los n-gramas, las palabras perdían un poco de léxico y se creaban faltas ortográficas (e.g., la palabra _happy_ se convertía en _happi_). Por eso mismo, decidimos no aplicar esta transformación. 
 
+### Eliminación de números
 Por último, se eliminan los números, ya que consideramos que interferirán en las predicciones; es de suma importancia lograr predecir las primeras tres palabras y consideramos que es más sencillo si eliminamos los números. 
 ```{r}
 blog <- tm_map(blog, removeNumbers)
@@ -148,7 +162,7 @@ news <- tm_map(news, removeNumbers)
 
 twitter <- tm_map(twitter, removeNumbers)
 ```
-# Análisis Exploratorio
+## Análisis Exploratorio
 Obteniendo las palabras más frecuentes, se tomó la decisión de encontrar las que se encuentren por lo menos más de 1000 veces. Por otro lado, utilizamos la función removeSparseTerms() para deshacernos de las palabras más infrecuentes. Esto se hace con el motivo de poder disminuir el peso de mb para cada matriz
 ```{r}
 #Se convierten en una document term matrix
@@ -265,7 +279,7 @@ newsP <- ggplot(subset(wfNews, freq>2000), aes(x = reorder(word, -freq), y = fre
 newsP
 ```
 
-# N - gramas
+## N - gramas
 
 Se comienza creando un string para cada corpus, para luego poder ser aplicado el n-grama
 ```{r}
@@ -278,7 +292,7 @@ strNews <- concatenate(lapply(news, "[", 1))
 ```
 Se crean los bigramas para cada corpus. 
 
-## Bigramas del archivo Blogs
+### Bigramas del archivo Blogs
 
 ```{r}
 
@@ -291,7 +305,7 @@ get.phrasetable(bgBlogs)
 Se encuentra que US es uno de los bigramas más utilizados, así como 'New York', también 'look like' lo cual nos lleva a pensar que probablemente se realizan muchas comparaciones en este archivo.
 
 
-## Bigramas del archivo Twitter
+### Bigramas del archivo Twitter
 ```{r}
 
 #Bigrama de Twitter
@@ -303,7 +317,7 @@ get.phrasetable(bgTwitter)
 Era de esperarse que 'rt' fuera uno de los bigramas más utilizados, nuevamente se encuentra la frase 'look like' como una de las más frecuentes.
 
 
-## Bigramas del archivo News
+### Bigramas del archivo News
 ```{r}
 
 #Bigrama de News
@@ -318,7 +332,7 @@ En este caso, 'Us' vuelve a ser de las más frecuentes, otros bigramas que nos l
 A continuación se encontrarán los trigramas
 
 
-## Trigramas del archivo Blogs
+### Trigramas del archivo Blogs
 ```{r}
 
 #Trigrama de Blogs
@@ -330,7 +344,7 @@ get.phrasetable(tgBlogs)
 Algo que cabe destacar en estos trigramas es que 'world war ii' es de los más frecuentes así como ' nuclear power plant', ¿Acaso en los blogs, en su mayoría, se habla de la Segunda Guerra Mundial?
 
 
-## Trigramas del archivo Twitter
+### Trigramas del archivo Twitter
 ```{r}
 
 #Trigrama de Twitter
@@ -343,7 +357,7 @@ get.phrasetable(tgTwitter)
 
 
 
-## Trigramas del archivo News
+### Trigramas del archivo News
 ```{r}
 
 #Trigrama de News
