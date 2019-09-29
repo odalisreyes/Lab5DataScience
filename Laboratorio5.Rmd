@@ -13,10 +13,16 @@ output:
 ## Limpieza y preprocesamiento
 El objetivo de este apartado es limpiar la muestra de 5% de los 3 textos usados: blogs, news y twitter. Los paquetes que se usaron para este laboratorio fueron los siguientes:
 ```{r}
+install.packages("wordcloud")
+install.packages("slam") 
+install.packages("RColorBrewer")
 library("readr") #Lee los archivos 
 library("tm")  #Contiene tranformaciones para el text mining
 library("SnowballC") #Stopwords
-
+library("wordcloud")
+library("RColorBrewer") #para las nubes de palabras 
+library(ggplot2) #para gráficos
+library(dplyr) #manipualacion de texto
 ```
 
 Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto. Esto se hizo con el fin de reducir el tamaño de la muestra, ya que cada archivo de texto pesa demasiado y dificulta la hora de correr el programa. Cabe mencionar lo siguiente: 
@@ -33,7 +39,7 @@ Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de la
 #/Users/odalisrg/Downloads/Textos
 #-------------------------------------------------
 
-texto <- VCorpus(DirSource("/Users/odalisrg/Downloads/Textos"), readerControl = list(language = "en"))
+texto <- VCorpus(DirSource("C:/Users/smayr/Documents/Tercer año/Semestre 6/Data Science/Laboratorio 5"), readerControl = list(language = "en"))
 
 # Se deja fijo la muestra aleatoria
 set.seed(3)
@@ -50,9 +56,9 @@ twitter <- Corpus(VectorSource(texto[[3]]$content))
 
 Se realiza una vista previa para cada archivo, con el fin de saber la cantidad de palabras que hay en cada muestra y verificar que la extracción de datos aleatorios se haya realizado correctamente para las muestras del 5%. Se observa que para **blogs**, quedaron 44,964 palabras; para **news**, quedaron 50,521 palabras; para **twitter**, quedaron 118,007 palabras.
 ```{r}
-inspect(blog) 
-inspect(news)
-inspect(twitter)
+#inspect(blog) 
+#inspect(news)
+#inspect(twitter)
 ```
 
 Se cambian las letras a minúsculas, así se logra obtener un texto más homogéneo. 
@@ -137,3 +143,50 @@ news <- tm_map(news, removeNumbers)
 
 twitter <- tm_map(twitter, removeNumbers)
 ```
+
+Obteniendo la frecuencia de las palabras en cada archivo, se tomó la decisión de encontrar 
+```{r}
+#Se conviernten en un term document matrix
+blogM <-  TermDocumentMatrix(blog)
+twitterM <- TermDocumentMatrix(twitter)
+newsM <- TermDocumentMatrix(news)
+
+findFreqTerms(blogM, lowfreq=100)
+#no me funciona :()
+
+
+#Se ordena 
+```
+
+# Análisis exploratorio
+
+```{r}
+
+#Blog
+
+wordcloud(blog, max.words=50, random.order= FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+Se observa que para el documento de Blog, las palabras más utilizadas son: 'one', 'like', 'time', 'will', 'day'. 
+
+
+```{r}
+
+#twitter
+
+wordcloud(twitter, max.words=50, random.order= FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+Para el archivo de Twitter, se destaca nuevamente la palabra 'will' y 'come', pero también destaca 'thank' y 'love' ¿Se podría asociar estas palabras a sentimientos positivos?
+Otras palabras que no destacan tanto, pero se encuentran en la nube de palabras son 'lol' y 'follow'.
+
+```{r}
+
+#News
+
+wordcloud(news, max.words=80, random.order= FALSE, rot.per=0.35, 
+          colors=brewer.pal(8, "Dark2"))
+```
+Para el archivo de News se tiene que la palabra que más se destaca es la de 'said', lo cual tiene sentido dado que en las noticias hacen referencia a entrevistas de personas involucradas en hechos. Otras de las palabras que se repiten, comparando con los archivos anteriores, son 'will' y 'one'. 
+
+
