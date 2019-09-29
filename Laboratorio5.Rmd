@@ -25,8 +25,8 @@ library("RColorBrewer") #para las nubes de palabras
 library(ggplot2) #para gráficos
 library(dplyr) #manipualacion de texto
 library(devtools) #Para instalar ngramas
-#install_github("wrathematics/ngram") #descarga del paquete ngram
-library(ngram) #para ngramas
+#install_github("wrathematics/ngram")#descarga del paquete ngram
+  library(ngram) #para ngramas
 ```
 
 Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto a excepción de Twitter dado que es muy pesado y consume mucha memoria. Para twitter se crea un sample aleatorio con el 4%. Esto se hizo con el fin de reducir el tamaño de la muestra, ya que cada archivo de texto pesa demasiado y dificulta la hora de correr el programa. Cabe mencionar lo siguiente: 
@@ -186,7 +186,7 @@ dtmNews <- DocumentTermMatrix(news)
 #newsM <- TermDocumentMatrix(news)
 
 
-findFreqTerms(dtmNews, lowfreq=1000)
+findFreqTerms(dtmNews, lowfreq=100)
 ```
 
 Para el caso del documento de News se tiene que se tuvo que disminuir la frecuencia mínima a encontrar, en este caso se disminuyó a 100 palabras. Entre las que nos llamaron la atención fueron: 'office', 'public', 'money', 'company', 'million' ya que se pueden asociar a noticias sobre el ámbito laboral. 
@@ -200,6 +200,8 @@ wordcloud(blog, max.words=50, random.order= FALSE, rot.per=0.35,
 Se observa que para el documento de Blog, las palabras más utilizadas son: 'one', 'like', 'time', 'will', 'day'. 
 
 
+Cabe mencionar que en general, entre las palabras que se encuentran en todos los archivos y que más se repiten son: 'like', 'day', 'year' y 'said'. 
+
 ```{r}
 
 #twitter
@@ -210,7 +212,7 @@ wordcloud(twitter, max.words=50, random.order= FALSE, rot.per=0.35,
 Para el archivo de Twitter, se destaca nuevamente la palabra 'will' y 'come', pero también destaca 'thank', 'just', 'get' y 'love' ¿Se podría asociar estas palabras a sentimientos positivos?
 Otras palabras que no destacan tanto, pero se encuentran en la nube de palabras son 'lol' y 'follow'.
 
-Se prosigue a realizar los histogramas de frecuencia de palbras. Se convierte
+Se prosigue a realizar los histogramas de frecuencia de palabras. Se convierte
 
 ```{r}
 
@@ -274,7 +276,10 @@ strTwitter <- concatenate(lapply(twitter, "[", 1))
 strNews <- concatenate(lapply(news, "[", 1))
 
 ```
-Se crean los bigramas para cada corpus
+Se crean los bigramas para cada corpus. 
+
+## Bigramas del archivo Blogs
+
 ```{r}
 
 #Bigrama de Blogs
@@ -283,6 +288,10 @@ bgBlogs <- ngram(strBlogs, n=2)
 
 get.phrasetable(bgBlogs)
 ```
+Se encuentra que US es uno de los bigramas más utilizados, así como 'New York', también 'look like' lo cual nos lleva a pensar que probablemente se realizan muchas comparaciones en este archivo.
+
+
+## Bigramas del archivo Twitter
 ```{r}
 
 #Bigrama de Twitter
@@ -291,6 +300,10 @@ bgTwitter <- ngram(strTwitter, n=2)
 
 get.phrasetable(bgTwitter)
 ```
+Era de esperarse que 'rt' fuera uno de los bigramas más utilizados, nuevamente se encuentra la frase 'look like' como una de las más frecuentes.
+
+
+## Bigramas del archivo News
 ```{r}
 
 #Bigrama de News
@@ -299,7 +312,13 @@ bgNews <- ngram(strNews, n=2)
 
 get.phrasetable(bgNews)
 ```
+En este caso, 'Us' vuelve a ser de las más frecuentes, otros bigramas que nos llaman la atención son 'St. Louis', 'New York' y 'New Jersey' ¿podría ser que las noticias más frecuentes estén relacionadas con suscesos en esas 3 ciudades?
+
+
 A continuación se encontrarán los trigramas
+
+
+## Trigramas del archivo Blogs
 ```{r}
 
 #Trigrama de Blogs
@@ -308,6 +327,10 @@ tgBlogs <- ngram(strBlogs, n=3)
 
 get.phrasetable(tgBlogs)
 ```
+Algo que cabe destacar en estos trigramas es que 'world war ii' es de los más frecuentes así como ' nuclear power plant', ¿Acaso en los blogs, en su mayoría, se habla de la Segunda Guerra Mundial?
+
+
+## Trigramas del archivo Twitter
 ```{r}
 
 #Trigrama de Twitter
@@ -316,6 +339,11 @@ tgTwitter <- ngram(strTwitter, n=3)
 
 get.phrasetable(tgTwitter)
 ```
+
+
+
+
+## Trigramas del archivo News
 ```{r}
 
 #Trigrama de News
@@ -324,6 +352,8 @@ tgNews <- ngram(strNews, n=3)
 
 get.phrasetable(tgNews)
 ```
+Entre los más destacados son el de 'president Barack Obama' porque nos lleva a pensar que posiblemente las noticias sean correspondientes a los años en los que Barack Obama fue presidente de Estados Unidos, asimismo ' U S attorney' ya que se podrían relacionar las noticias con asuntos legales. 
+
 
 
 
