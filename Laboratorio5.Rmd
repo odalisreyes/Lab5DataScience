@@ -143,23 +143,40 @@ news <- tm_map(news, removeNumbers)
 
 twitter <- tm_map(twitter, removeNumbers)
 ```
-
-Obteniendo la frecuencia de las palabras en cada archivo, se tomó la decisión de encontrar 
+# Análisis Exploratorio
+Obteniendo las palabras más frecuentes, se tomó la decisión de encontrar las que se encuentren por lo menos más de 1000 veces.
 ```{r}
 #Se conviernten en un term document matrix
 blogM <-  TermDocumentMatrix(blog)
+
+
+findFreqTerms(blogM, lowfreq=1000)
+
+
+
+```
+Se observa que para el archivo de texto de Blog, las palabras más frecuentes que nos llamaron la atención fueron 'book', 'blog' dado que hacen referencia a que se pueden hacer reviews de libros o blogs, 'love' puede estar relacionado con análisis de emociones. 
+
+```{r}
+#Se convierten en un term document matrix
+
 twitterM <- TermDocumentMatrix(twitter)
+
+
+findFreqTerms(twitterM, lowfreq=1000)
+```
+En este caso, para el archivo de texto de Twitter se tiene que las palabras más frecuentes que llaman la atención son: 'tweet' dado que inferimos que el usuario hace referencia a los tweets de alguien más. Por otro lado, encontramos palabras que se pueden asociar a emociones y sentimientos como: 'hope', 'miss', 'love', 'happiness'.
+
+```{r}
+#Se convierten en un term document matrix
+
 newsM <- TermDocumentMatrix(news)
 
-findFreqTerms(blogM, lowfreq=100)
-#no me funciona :()
 
-
-#Se ordena 
+findFreqTerms(newsM, lowfreq=100)
 ```
 
-# Análisis exploratorio
-
+Para el caso del documento de News se tiene que se tuvo que disminuir la frecuencia mínima a encontrar, en este caso se disminuyó a 100 palabras. Entre las que nos llamaron la atención fueron: 'office', 'public', 'money', 'company', 'million' ya que se pueden asociar a noticias sobre el ámbito laboral. 
 ```{r}
 
 #Blog
