@@ -26,7 +26,9 @@ library(ggplot2) #para gráficos
 library(dplyr) #manipualacion de texto
 library(devtools) #Para instalar ngramas
 #install_github("wrathematics/ngram")#descarga del paquete ngram
-  library(ngram) #para ngramas
+library(ngram) #para ngramas
+library(data.table)
+library(quanteda)
 ```
 
 Ahora, se importan los datos, se leen y se crean samples aleatorias con 5% de las observaciones para cada texto a excepción de Twitter dado que es muy pesado y consume mucha memoria. Para twitter se crea un sample aleatorio con el 4%. Esto se hizo con el fin de reducir el tamaño de la muestra, ya que cada archivo de texto pesa demasiado y dificulta la hora de correr el programa. Cabe mencionar lo siguiente: 
@@ -163,7 +165,7 @@ news <- tm_map(news, removeNumbers)
 twitter <- tm_map(twitter, removeNumbers)
 ```
 ## Análisis Exploratorio
-Obteniendo las palabras más frecuentes, se tomó la decisión de encontrar las que se encuentren por lo menos más de 1000 veces. Por otro lado, utilizamos la función removeSparseTerms() para deshacernos de las palabras más infrecuentes. Esto se hace con el motivo de poder disminuir el peso de mb para cada matriz
+Obteniendo las palabras más frecuentes, se tomó la decisión de encontrar las que se encuentren por lo menos más de 1000 veces. Por otro lado, utilizamos la función removeSparseTerms() para deshacernos de las palabras más infrecuentes. Esto se hace con el motivo de poder disminuir el peso de MB para cada matriz.
 ```{r}
 #Se convierten en una document term matrix
 
@@ -202,8 +204,10 @@ dtmNews <- DocumentTermMatrix(news)
 
 findFreqTerms(dtmNews, lowfreq=100)
 ```
-
 Para el caso del documento de News se tiene que se tuvo que disminuir la frecuencia mínima a encontrar, en este caso se disminuyó a 100 palabras. Entre las que nos llamaron la atención fueron: 'office', 'public', 'money', 'company', 'million' ya que se pueden asociar a noticias sobre el ámbito laboral. 
+
+### Nube de palabras
+#### Archivo Blogs
 ```{r}
 
 #Blog
@@ -212,10 +216,9 @@ wordcloud(blog, max.words=50, random.order= FALSE, rot.per=0.35,
           colors=brewer.pal(8, "Dark2"))
 ```
 Se observa que para el documento de Blog, las palabras más utilizadas son: 'one', 'like', 'time', 'will', 'day'. 
-
-
 Cabe mencionar que en general, entre las palabras que se encuentran en todos los archivos y que más se repiten son: 'like', 'day', 'year' y 'said'. 
 
+#### Archivo Twitter
 ```{r}
 
 #twitter
@@ -226,8 +229,7 @@ wordcloud(twitter, max.words=50, random.order= FALSE, rot.per=0.35,
 Para el archivo de Twitter, se destaca nuevamente la palabra 'will' y 'come', pero también destaca 'thank', 'just', 'get' y 'love' ¿Se podría asociar estas palabras a sentimientos positivos?
 Otras palabras que no destacan tanto, pero se encuentran en la nube de palabras son 'lol' y 'follow'.
 
-Se prosigue a realizar los histogramas de frecuencia de palabras. Se convierte
-
+#### Archivo News
 ```{r}
 
 #News
@@ -237,7 +239,9 @@ wordcloud(news, max.words=80, random.order= FALSE, rot.per=0.35,
 ```
 Para el archivo de News se tiene que la palabra que más se destaca es la de 'said', lo cual tiene sentido dado que en las noticias hacen referencia a entrevistas de personas involucradas en hechos. Otras de las palabras que se repiten, comparando con los archivos anteriores, son 'will' y 'one'. 
 
-Se obtienen los histogramas de frecuencia mayores a 2000 de palabras por cada texto procesado
+### Histogramas
+Se prosigue a realizar los histogramas de frecuencia de palabras. Se obtienen los histogramas de frecuencia mayores a 2000 de palabras por cada texto procesado. 
+#### Archivo blogs
 ```{r}
 # blog
 freqBlog <- colSums(as.matrix(dtmBlog))
@@ -251,6 +255,8 @@ blogP <- ggplot(subset(wfBlog, freq>2000), aes(x = reorder(word, -freq), y = fre
           theme(axis.text.x=element_text(angle=45, hjust=1))
 blogP
 ```
+
+#### Archivo Twitter
 ```{r}
 # twitter
 freqTwitter <- colSums(as.matrix(dtmTwitter))
@@ -265,6 +271,8 @@ twitterP <- ggplot(subset(wfTwitter, freq>2000), aes(x = reorder(word, -freq), y
           theme(axis.text.x=element_text(angle=45, hjust=1))
 twitterP
 ```
+
+#### Archivo News
 ```{r}
 # News
 freqNews <- colSums(as.matrix(dtmNews))
@@ -279,8 +287,7 @@ newsP <- ggplot(subset(wfNews, freq>2000), aes(x = reorder(word, -freq), y = fre
 newsP
 ```
 
-## N - gramas
-
+## N-gramas
 Se comienza creando un string para cada corpus, para luego poder ser aplicado el n-grama
 ```{r}
 strBlogs <- concatenate(lapply(blog, "[", 1))
@@ -368,7 +375,152 @@ get.phrasetable(tgNews)
 ```
 Entre los más destacados son el de 'president Barack Obama' porque nos lleva a pensar que posiblemente las noticias sean correspondientes a los años en los que Barack Obama fue presidente de Estados Unidos, asimismo ' U S attorney' ya que se podrían relacionar las noticias con asuntos legales. 
 
+## Probabilidades de palabras y Kneser-Kney Smoothing
+Para realizar el algoritmo de Kneser-Kney Smoothing, proseguimos a unir los 3 datasets limpios a uno solo. Luego, lo convertimos a un corpus. Esto se hizo con el fin que al momento de estar aplicando el algoritmo de predicción con los ngramas, se tuviera una mayor base de datos de donde sacar información para las predicciones. 
+```{r}
+# Conversión a un solo data set
+full.text <- c(blog, news, twitter)
+
+# Convirtiendo a un corpus
+full.data <- Corpus(VectorSource(full.text))
+
+# Se convierte a token
+data.token <- tokens(
+    x = tolower(full.data),
+    remove_punct = FALSE,
+    remove_twitter = FALSE,
+    remove_numbers = FALSE,
+    remove_hyphens = FALSE,
+    remove_symbols = FALSE,
+    remove_url = FALSE
+)
+
+
+# Unigrama, bigrama y trigrama del texto completo
+bigram <- tokens_ngrams(data.token, n = 2)
+trigram <- tokens_ngrams(data.token, n = 3)
+
+# Se crea una DFM
+uni <- dfm_trim(dfm(data.token), 3)
+bi <- dfm_trim(dfm(bigram), 3)
+tri <- dfm_trim(dfm(trigram), 3)
+
+# Se crean vectores con el contador de palabras
+sumsU <- colSums(uni)
+sumsB <- colSums(bi)
+sumsT <- colSums(tri)
+
+# Se crean tablas con columnas de cada palabra del uni/bi/tri-grama
+unigram.pal <- data.table(word_1 = names(sumsU), count = sumsU)
+
+bigram.pal <- data.table(
+        word_1 = sapply(strsplit(names(sumsB), "_", fixed = TRUE), '[[', 1),
+        word_2 = sapply(strsplit(names(sumsB), "_", fixed = TRUE), '[[', 2),
+        count = sumsB)
+
+trigram.pal <- data.table(
+        word_1 = sapply(strsplit(names(sumsT), "_", fixed = TRUE), '[[', 1),
+        word_2 = sapply(strsplit(names(sumsT), "_", fixed = TRUE), '[[', 2),
+        word_3 = sapply(strsplit(names(sumsT), "_", fixed = TRUE), '[[', 3),
+        count = sumsT)
+
+# Se colocan indices a los ngramas
+setkey(unigram.pal, word_1)
+setkey(bigram.pal, word_1, word_2)
+setkey(trigram.pal, word_1, word_2, word_3)
+
+```
+
+### Probabilidad de los uni usando KNP
+```{r}
+# Finding the most frequently used 50 unigrmas
+unigram.pal <- unigram.pal[order(-Prob)][1:50]
+```
+
+### Probabilidad de los bigramas usando KNP
+Con este algoritmo, proseguimos a calcular la probabilidad de las palabras de cada ngrama realizado. 
+```{r}
+valordes <- 0.75
+
+######## Finding Bi-Gram Probability #################
+
+# Finding number of bi-gram words
+numOfBiGrams <- nrow(bigram.pal[by = .(word_1, word_2)])
+
+# Dividing number of times word 2 occurs as second part of bigram, by total number of bigrams.  
+# ( Finding probability for a word given the number of times it was second word of a bigram)
+ckn <- bigram.pal[, .(Prob = ((.N) / numOfBiGrams)), by = word_2]
+setkey(ckn, word_2)
+
+# Assigning the probabilities as second word of bigram, to unigrams
+unigram.pal[, Prob := ckn[word_1, Prob]]
+unigram.pal <- unigram.pal[!is.na(unigram.pal$Prob)]
+
+# Finding number of times word 1 occurred as word 1 of bi-grams
+n1wi <- bigram.pal[, .(N = .N), by = word_1]
+setkey(n1wi, word_1)
+
+# Assigning total times word 1 occured to bigram cn1
+bigram.pal[, Cn1 := unigram.pal[word_1, count]]
+
+# Kneser Kney Algorithm
+bigram.pal[, Prob := ((count - valordes) / Cn1 + valordes / Cn1 * n1wi[word_1, N] * unigram.pal[word_2, Prob])]
+
+######## End of Finding Bi-Gram Probability #################
+```
+
+### Probabilidad de los trigramas usando KNP
+```{r}
+######## Finding Tri-Gram Probability #################
+
+# Finding count of word1-word2 combination in bigram 
+trigram.pal[, Cn2 := bigram.pal[.(word_1, word_2), count]]
+
+# Finding count of word1-word2 combination in trigram
+n1w12 <- trigram.pal[, .N, by = .(word_1, word_2)]
+setkey(n1w12, word_1, word_2)
+
+# Kneser Kney Algorithm
+trigram.pal[, Prob := (count - valordes) / Cn2 + valordes / Cn2 * n1w12[.(word_1, word_2), N] *
+              bigram.pal[.(word_1, word_2), Prob]]
+
+######## End of Finding Tri-Gram Probability #################
+```
+
+
+## Algoritmo de predicción 
+```{r}
+# function to return highly probable previous word given a word
+biWords <- function(w1, n = 5) {
+    pwords <- bigram.pal[w1][order(-Prob)]
+    if (any(is.na(pwords)))
+        return(uniWords(n))
+    if (nrow(pwords) > n)
+        return(pwords[1:n, word_2])
+    count <- nrow(pwords)
+    unWords <- uniWords(n)[1:(n - count)]
+    return(c(pwords[, word_2], unWords))
+}
+
+
+# function to return random words from unigrams
+uniWords <- function(n = 5) {  
+    return(sample(unigram.pal[, word_1], size = n))
+}
+```
 
 
 
+```{r}
+# The prediction app
+getWords <- function(str){
+    require(quanteda)
+    tokens <- tokens(x = char_tolower(str))
+    tokens <- char_wordstem(rev(rev(tokens[[1]])[1:2]), language = "english")
+    
+    words <- triWords(tokens[1], tokens[2], 5)
+    chain_1 <- paste(tokens[1], tokens[2], words[1], sep = " ")
 
+    print(words[2])
+}
+```
