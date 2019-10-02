@@ -202,7 +202,7 @@ dtmNews <- DocumentTermMatrix(news)
 #newsM <- TermDocumentMatrix(news)
 
 
-findFreqTerms(dtmNews, lowfreq=100)
+findFreqTerms(dtmNews, lowfreq=1000)
 ```
 Para el caso del documento de News se tiene que se tuvo que disminuir la frecuencia mínima a encontrar, en este caso se disminuyó a 100 palabras. Entre las que nos llamaron la atención fueron: 'office', 'public', 'money', 'company', 'million' ya que se pueden asociar a noticias sobre el ámbito laboral. 
 
@@ -386,15 +386,16 @@ full.data <- Corpus(VectorSource(full.text))
 
 # Se convierte a token
 data.token <- tokens(
-    x = tolower(full.data),
-    remove_punct = FALSE,
-    remove_twitter = FALSE,
-    remove_numbers = FALSE,
-    remove_hyphens = FALSE,
-    remove_symbols = FALSE,
-    remove_url = FALSE
+    x = tolower(full.text),
+    remove_punct = TRUE,
+    remove_twitter = TRUE,
+    remove_numbers = TRUE,
+    remove_hyphens = TRUE,
+    remove_symbols = TRUE,
+    remove_url = TRUE
 )
 
+data.token <- tokens_wordstem(data.token, language = "english")
 
 # Unigrama, bigrama y trigrama del texto completo
 bigram <- tokens_ngrams(data.token, n = 2)
@@ -481,7 +482,7 @@ n1w12 <- trigram.pal[, .N, by = .(word_1, word_2)]
 setkey(n1w12, word_1, word_2)
 
 # Kneser Kney Algorithm
-trigram.pal[, Prob := (count - valordes) / Cn2 + valordes / Cn2 * n1w12[.(word_1, word_2), N] *
+trigram.pal[, by = .(word_1, word_2) / n1w12[.(word_1, word_2), N] *
               bigram.pal[.(word_1, word_2), Prob]]
 
 ######## End of Finding Tri-Gram Probability #################
@@ -518,9 +519,9 @@ getWords <- function(str){
     tokens <- tokens(x = char_tolower(str))
     tokens <- char_wordstem(rev(rev(tokens[[1]])[1:2]), language = "english")
     
-    words <- triWords(tokens[1], tokens[2], 5)
+    words <- biWords(tokens[1], 5)
     chain_1 <- paste(tokens[1], tokens[2], words[1], sep = " ")
 
-    print(words[2])
+    print(words[1])
 }
 ```
