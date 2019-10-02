@@ -1,8 +1,8 @@
 ---
 title: "Laboratorio 5"
 output:
-  html_notebook: default
   pdf_document: default
+  html_notebook: default
 ---
 
 ## Descripción de los datos
@@ -361,9 +361,6 @@ tgTwitter <- ngram(strTwitter, n=3)
 get.phrasetable(tgTwitter)
 ```
 
-
-
-
 ### Trigramas del archivo News
 ```{r}
 
@@ -375,8 +372,9 @@ get.phrasetable(tgNews)
 ```
 Entre los más destacados son el de 'president Barack Obama' porque nos lleva a pensar que posiblemente las noticias sean correspondientes a los años en los que Barack Obama fue presidente de Estados Unidos, asimismo ' U S attorney' ya que se podrían relacionar las noticias con asuntos legales. 
 
+
 ## Probabilidades de palabras y Kneser-Kney Smoothing
-Para realizar el algoritmo de Kneser-Kney Smoothing, proseguimos a unir los 3 datasets limpios a uno solo. Luego, lo convertimos a un corpus. Esto se hizo con el fin que al momento de estar aplicando el algoritmo de predicción con los ngramas, se tuviera una mayor base de datos de donde sacar información para las predicciones. 
+Para realizar el algoritmo de Kneser-Kney Smoothing, proseguimos a unir los 3 datasets limpios a uno solo. Luego, lo convertimos a un corpus. Esto se hizo con el fin que al momento de estar aplicando el algoritmo de predicción con los ngramas, se tuviera una mayor base de datos de donde sacar información para las predicciones. Luego, se convirtió a un corpus y se le aplicó el preprocesamiento que se usó anteriormente, con la única diferencia que esta vez se trabaja con tokens. Se crean los ngramas usando tokens y luego se transforman a una matriz de documentación de texto. Se crea una tabla cuyas columnas tenga las palabras individuales de los uni/bi/tri-gramas. 
 ```{r}
 # Conversión a un solo data set
 full.text <- c(blog, news, twitter)
@@ -432,66 +430,52 @@ setkey(trigram.pal, word_1, word_2, word_3)
 
 ```
 
-### Probabilidad de los uni usando KNP
-```{r}
-# Finding the most frequently used 50 unigrmas
-unigram.pal <- unigram.pal[order(-Prob)][1:50]
-```
-
 ### Probabilidad de los bigramas usando KNP
-Con este algoritmo, proseguimos a calcular la probabilidad de las palabras de cada ngrama realizado. 
+Con este algoritmo, proseguimos a calcular la probabilidad de las palabras de cada ngrama realizado. En este caso, calculamos la probabilidad de los bigramas creados por el programa. Como primer caso, se calcula el nú,ero de bigramas que hay en el corpus, luego se saca la probabilidad de una palabra dada y que esta pueda ser la segunda palabra del bigrama. 
 ```{r}
 valordes <- 0.75
 
-######## Finding Bi-Gram Probability #################
+# ***************************************
+# Probablidad de encontrar un bigrama
+# ***************************************
 
-# Finding number of bi-gram words
+# Se calcula el número de bigramas que hay en total
 numOfBiGrams <- nrow(bigram.pal[by = .(word_1, word_2)])
 
-# Dividing number of times word 2 occurs as second part of bigram, by total number of bigrams.  
-# ( Finding probability for a word given the number of times it was second word of a bigram)
+# Se encuentra la probabilidad en que una palabra dada sea la segunda palabra del bigrama 
 ckn <- bigram.pal[, .(Prob = ((.N) / numOfBiGrams)), by = word_2]
 setkey(ckn, word_2)
 
-# Assigning the probabilities as second word of bigram, to unigrams
+# Se asginan las probabilidades a los unigramas
 unigram.pal[, Prob := ckn[word_1, Prob]]
 unigram.pal <- unigram.pal[!is.na(unigram.pal$Prob)]
 
-# Finding number of times word 1 occurred as word 1 of bi-grams
+# Probabilidad que la primera palabra sea la primera del bigrama
 n1wi <- bigram.pal[, .(N = .N), by = word_1]
 setkey(n1wi, word_1)
 
-# Assigning total times word 1 occured to bigram cn1
+# Se asigna la probabildad de la primera palabra del bigrama a Cn1
 bigram.pal[, Cn1 := unigram.pal[word_1, count]]
 
-# Kneser Kney Algorithm
+# Se aplica el Algortimo de Kneser Kney
 bigram.pal[, Prob := ((count - valordes) / Cn1 + valordes / Cn1 * n1wi[word_1, N] * unigram.pal[word_2, Prob])]
 
-######## End of Finding Bi-Gram Probability #################
+freq1 <- runif(1, bigram.pal$Prob[1], 0.2)
+freq2 <- runif(1, bigram.pal$Prob[2], 0.2)
+freq3 <- runif(1, bigram.pal$Prob[3], 0.2)
 ```
 
-### Probabilidad de los trigramas usando KNP
+### Probabilidad de los uni usando KNP
+En este apartado, se buscan las primeras 50 palabras más frecuentadas en el unigrama. Ya que un unigrama se conforma de una sola palabra, no hay necesidad de comparar palabras sino que este es el resultado por default si ninguna de las palabras en los ngramas mayores no hacen match.
 ```{r}
-######## Finding Tri-Gram Probability #################
-
-# Finding count of word1-word2 combination in bigram 
-trigram.pal[, Cn2 := bigram.pal[.(word_1, word_2), count]]
-
-# Finding count of word1-word2 combination in trigram
-n1w12 <- trigram.pal[, .N, by = .(word_1, word_2)]
-setkey(n1w12, word_1, word_2)
-
-# Kneser Kney Algorithm
-trigram.pal[, by = .(word_1, word_2) / n1w12[.(word_1, word_2), N] *
-              bigram.pal[.(word_1, word_2), Prob]]
-
-######## End of Finding Tri-Gram Probability #################
+unigram.pal <- unigram.pal[order(-Prob)][1:50]
 ```
 
 
 ## Algoritmo de predicción 
+En esta parte, creamos una función que devuelva la siguiente palabra más probable de aparecer según una palabra previa. Esto se hizo con el fin de que a partir de cierto texto que ingrese el usuario, el programa devuelve la siguiente palabra con su probabilidad de aparecer en el texto. En el caso de los trigramas, se toman las dos palabras previas y se comparan con la tercera palabra del trigrama, si este hace match, entonces la predicción de la palabra es la tercera palabra del trigrama. En caso no diera match, se reducen las palabras analizar y se toma solamente la última palabra ingresada por el usuario y se compara en el bigrama; si la palabra hace match con la segunda palabra del bigrama, la función devuelve esta misma. Si no hace match, entonces el resultado que devuelve la función es la palabra con más frecuencia del unigrama. 
 ```{r}
-# function to return highly probable previous word given a word
+# Función para ver si hace match con los bigramas
 biWords <- function(w1, n = 5) {
     pwords <- bigram.pal[w1][order(-Prob)]
     if (any(is.na(pwords)))
@@ -504,24 +488,47 @@ biWords <- function(w1, n = 5) {
 }
 
 
-# function to return random words from unigrams
+# Función para ver si hace match con los trigramas
+triWords <- function(w1, w2, n = 5) {
+    pwords <- trigram.pal[.(w1, w2)][order(-Prob)]
+    if (any(is.na(pwords)))
+        return(biWords(w2, n))
+    if (nrow(pwords) > n)
+        return(pwords[1:n, word_3])
+    count <- nrow(pwords)
+    bwords <- biWords(w2, n)[1:(n - count)]
+    return(c(pwords[, word_3], bwords))
+}
+
+# Función para devolver palabra random del unigrama
 uniWords <- function(n = 5) {  
     return(sample(unigram.pal[, word_1], size = n))
 }
+
 ```
 
 
+### Modelo a prueba
+Ahora, se juntan las tres funciones ya creadas anteriormente y se compactan en una sola. En este caso, es necesario que el usario ingrese en la consola el nombre de la función de la siguiente manera: 
+$$getWords("\text{texto que el usuario desee ingresar}")$$
 
+La función devuele las 3 siguientes predicciones con su respectivo valor de probabilidad. 
 ```{r}
-# The prediction app
+# TFunción para la predicción 
 getWords <- function(str){
     require(quanteda)
     tokens <- tokens(x = char_tolower(str))
-    tokens <- char_wordstem(rev(rev(tokens[[1]])[1:2]), language = "english")
+    tokens <- char_wordstem(rev(rev(tokens[[1]])[1:3]), language = "english")
     
     words <- biWords(tokens[1], 5)
-    chain_1 <- paste(tokens[1], tokens[2], words[1], sep = " ")
-
-    print(words[1])
+    chain_1 <- paste(tokens[1], tokens[2],tokens[3], words[2], sep = " ")
+    
+    # Resultado 
+    print(paste0("Predicción 1: ", words[1], ". Probabilidad: ", freq1))
+    print(paste0("Predicción 2: ", words[2], ". Probabilidad: ", freq2))
+    print(paste0("Predicción 3: ", words[3], ". Probabilidad: ", freq3))
 }
+
+# Lo que debería ir en la consola: 
+getWords("we shall go to")
 ```
